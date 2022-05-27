@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="ScanFolders/App.axaml" value="ScanFolders/ScanFolders.csproj" />
+        <entry key="ScanFolders/MainWindow.axaml" value="ScanFolders/ScanFolders.csproj" />
+        <entry key="ScanFolders/Views/ErrorDialog.axaml" value="ScanFolders/ScanFolders.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

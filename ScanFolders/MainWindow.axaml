@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ScanFolders.MainWindow"
+        Title="ScanFolders">
+    <Grid>
+        <!--StackPanel for Menu-->
+        <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="True">
+            
+            <!--<Button Click="Button_OnClick">Test</Button>-->
+            
+            <!--Button for selection 1 (make folders for x amount of chapters)-->
+            <Button x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5" Content="Create chapter folders" HorizontalContentAlignment="Center" Margin="5"/>
+            
+            <!--Button for selection 2 (make scan-related folder)-->
+            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Not yet implemented"/>
+            
+                <!--Exit button-->
+            <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit" HorizontalContentAlignment="Center" Margin="5"/>
+        </StackPanel>
+        <Grid x:Name="Directory" IsVisible="False">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False"  MinWidth="300" Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False"/>
+                <Button x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder"/>
+            </StackPanel>
+            <Button x:Name="NxtDir" Content="Next" IsEnabled="False" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtDir_OnClick"></Button>
+            <Button x:Name="BckDir" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="BckDir_OnClick"/>
+        </Grid>
+        <Grid x:Name="ChaptersMenu" IsVisible="False">
+            <StackPanel>
+                <TextBox x:Name="AmountTxt" Watermark="Amount of chapters (ex. &quot;10&quot;)"></TextBox>
+                <TextBox x:Name="SplitTxt" Watermark="How many parts are chapters split (ex. &quot;2&quot;)"></TextBox>
+                <TextBox x:Name="StartChTxt" Watermark="Number of the first chapter (ex. &quot;1&quot;)"></TextBox>
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="BonusNone" Tag="BonusNone" IsChecked="True" Checked="BonusButtonChecked">No bonus chapters</RadioButton>
+                    <RadioButton x:Name="BonusSome" Tag="BonusSome" Checked="BonusButtonChecked">Select bonus chapters</RadioButton>
+                    <RadioButton x:Name="BonusAll" Tag="BonusAll" Checked="BonusButtonChecked">Bonus with every chapter</RadioButton>
+                </StackPanel>
+                <TextBox x:Name="BonusTxt" IsVisible="False"/>
+            </StackPanel>
+            <Button x:Name="NxtCh" Content="Next" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtCh_OnClick"/>
+            <Button x:Name="BckCh" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="BckCh_OnClick"/>
+        </Grid>
+        <Grid x:Name="LoadBar" IsVisible="False">
+            <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" IsIndeterminate="True"/>
+        </Grid>
+        <Grid x:Name="Done" IsVisible="False">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontSize="30" FontWeight="Bold" HorizontalAlignment="Center">Done</TextBlock>
+                <Button x:Name="MenuDir" Content="Return the main menu" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="MenuDir_OnClick"/>
+                <Button x:Name="ExitDir" Content="Exit" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
