@@ -9,13 +9,13 @@ public static class Chapters
 {
     private static List<string> bonusList = new List<string>();
 
-    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh, bool? tl, bool? pr)
+    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh, bool? tl, bool? pr, string dir)
     {
         for (int i = begin; i < amount + begin; i++)
         {
             if (split is 0 or 1)
             {
-                Directory.CreateDirectory(path + "/ch " + (i) + "/");
+                Directory.CreateDirectory(path + "/" + dir + (i) + "/");
             }
             else
             {
@@ -25,13 +25,13 @@ public static class Chapters
                     int splitsLoop = 0;
                     while (splitsLoop == 0)
                     {
-                        if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                        if (Directory.Exists(path + "/" + dir + (i) + "." + o + "/"))
                         {
                             o++;
                         }
                         else
                         {
-                            Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
+                            Directory.CreateDirectory(path + "/" + dir + (i) + "." + o + "/");
                             splitsLoop++;
                         }
                     }
@@ -41,7 +41,7 @@ public static class Chapters
 
         if (bonusSel != 0)
         {
-            BonusChapter(bonusSel, bonusCh, path, begin, amount);
+            BonusChapter(bonusSel, bonusCh, path, begin, amount, dir, split);
         }
 
         if (tl == true)
@@ -55,27 +55,104 @@ public static class Chapters
         }
     }
 
-    static void BonusChapter(int bonusSel, string bonusCh, string path, int begin, int amount) //TODO: Add support for split + bonus chapters that exceed *.9
+    static void BonusChapter(int bonusSel, string bonusCh, string path, int begin, int amount, string dir, int split)
     {
         if (bonusSel == 1)
         {
             bonusList = bonusCh.Split(',').ToList();
-            foreach (var bonus in bonusList)
+            List<int> bonusListInt = bonusList.Select(int.Parse).ToList();
+            int bonusMax = bonusListInt.Max();
+            if (split >= 5)
             {
-                int bonusInt = Convert.ToInt32(bonus);
-                int o = 5; //TODO: Make this more efficient
-                int splitsLoop = 0;
-                
-                while (splitsLoop == 0)
+                if (split + bonusMax >= 10)
                 {
-                    if (Directory.Exists(path + "/ch " + bonusInt + "." + o + "/"))
+                    foreach (var bonus in bonusList)
                     {
-                        o++;
+                        int bonusInt = Convert.ToInt32(bonus);
+                        int o = (split * 10) + 10; //TODO: Make this more efficient
+                        int bonusLoop = 0;
+
+                        while (bonusLoop == 0)
+                        {
+                            if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
+                            {
+                                o++;
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(path + "/" + dir + bonusInt + "." + o + "/");
+                                bonusLoop++;
+                            }
+                        }
                     }
-                    else
-                    { 
-                        Directory.CreateDirectory(path + "/ch " + bonusInt + "." + o + "/");
-                        splitsLoop++;
+                }
+                else
+                {
+                    foreach (var bonus in bonusList)
+                    {
+                        int bonusInt = Convert.ToInt32(bonus);
+                        int o = split + 1; //TODO: Make this more efficient
+                        int bonusLoop = 0;
+
+                        while (bonusLoop == 0)
+                        {
+                            if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
+                            {
+                                o++;
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(path + "/" + dir + bonusInt + "." + o + "/");
+                                bonusLoop++;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (split + bonusMax >= 10)
+                {
+                    foreach (var bonus in bonusList)
+                    {
+                        int bonusInt = Convert.ToInt32(bonus);
+                        int o = 50; //TODO: Make this more efficient
+                        int bonusLoop = 0;
+
+                        while (bonusLoop == 0)
+                        {
+                            if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
+                            {
+                                o++;
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(path + "/" + dir + bonusInt + "." + o + "/");
+                                bonusLoop++;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var bonus in bonusList)
+                    {
+                        int bonusInt = Convert.ToInt32(bonus);
+                        int o = 5; //TODO: Make this more efficient
+                        int bonusLoop = 0;
+
+                        while (bonusLoop == 0)
+                        {
+                            if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
+                            {
+                                o++;
+                            }
+                            else
+                            {
+                                Directory.CreateDirectory(path + "/" + dir + bonusInt + "." + o + "/");
+                                bonusLoop++;
+                            }
+                        }
                     }
                 }
             }
@@ -83,22 +160,100 @@ public static class Chapters
         else
         {
             int bonusInt = Convert.ToInt32(bonusCh);
-            for (int i = begin; i < amount + begin; i++)
+            if (split >= 5)
             {
-                for (int j = 0; j < bonusInt; j++)
+                if (split + bonusInt >= 10)
                 {
-                    int o = 5; //TODO: Make this more efficient
-                    int splitsLoop = 0;
-                    while (splitsLoop == 0)
+                    for (int i = begin; i < amount + begin; i++)
                     {
-                        if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                        for (int j = 0; j < bonusInt; j++)
                         {
-                            o++;
+                            int o = (split * 10) + 10; //TODO: Make this more efficient
+                            int bonusLoop = 0;
+                            while (bonusLoop == 0)
+                            {
+                                if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                                {
+                                    o++;
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
+                                    bonusLoop++;
+                                }
+                            }
                         }
-                        else
+                    }
+                }
+                else
+                {
+                    for (int i = begin; i < amount + begin; i++)
+                    {
+                        for (int j = 0; j < bonusInt; j++)
                         {
-                            Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
-                            splitsLoop++;
+                            int o = split + 1; //TODO: Make this more efficient
+                            int bonusLoop = 0;
+                            while (bonusLoop == 0)
+                            {
+                                if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                                {
+                                    o++;
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
+                                    bonusLoop++;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (split + bonusInt >= 10)
+                {
+                    for (int i = begin; i < amount + begin; i++)
+                    {
+                        for (int j = 0; j < bonusInt; j++)
+                        {
+                            int o = 50; //TODO: Make this more efficient
+                            int bonusLoop = 0;
+                            while (bonusLoop == 0)
+                            {
+                                if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                                {
+                                    o++;
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
+                                    bonusLoop++;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = begin; i < amount + begin; i++)
+                    {
+                        for (int j = 0; j < bonusInt; j++)
+                        {
+                            int o = 5; //TODO: Make this more efficient
+                            int bonusLoop = 0;
+                            while (bonusLoop == 0)
+                            {
+                                if (Directory.Exists(path + "/ch " + (i) + "." + o + "/"))
+                                {
+                                    o++;
+                                }
+                                else
+                                {
+                                    Directory.CreateDirectory(path + "/ch " + (i) + "." + o + "/");
+                                    bonusLoop++;
+                                }
+                            }
                         }
                     }
                 }

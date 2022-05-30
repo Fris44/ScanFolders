@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.MainWindow"
         Title="ScanFolders">
-    <Grid>
+<Grid>
         <!--StackPanel for Menu-->
         <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="True">
             
@@ -15,7 +15,7 @@
             <Button x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5" Content="Create chapter folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folder for x amount of chapters"/>
             
             <!--Button for selection 2 (make scan-related folder)-->
-            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folders for scan-related roles"/>
+            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folders for scan-related roles&#13;Like Raws, TS, TL"/>
             
                 <!--Exit button-->
             <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit" HorizontalContentAlignment="Center" Margin="5"/>
@@ -33,6 +33,7 @@
         </Grid>
         <Grid x:Name="ChaptersMenu" IsVisible="False">
             <StackPanel>
+                <TextBox x:Name="PrefixTxt" Watermark="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)"></TextBox>
                 <TextBox x:Name="AmountTxt" Watermark="Amount of chapters (ex. &quot;10&quot;)"></TextBox>
                 <TextBox x:Name="SplitTxt" Watermark="How many parts are chapters split in (ex. &quot;2&quot;)"></TextBox>
                 <TextBox x:Name="StartChTxt" Watermark="Number of the first chapter (ex. &quot;1&quot;)"></TextBox>
@@ -73,7 +74,7 @@
                         <TextBlock>Proofread</TextBlock>
                     </CheckBox>
                     <CheckBox Name="RawsBox" IsChecked="True">
-                        <TextBlock>Raws</TextBlock>
+                        <TextBlock>Raws (will also move any files in&#13;the chapter folder to the raws folder)</TextBlock>
                     </CheckBox>
                     <CheckBox Name="ClrdBox" IsChecked="True">
                         <TextBlock>Clear/Redraw</TextBlock>

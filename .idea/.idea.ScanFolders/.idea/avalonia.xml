@@ -6,6 +6,7 @@
         <entry key="ScanFolders/App.axaml" value="ScanFolders/ScanFolders.csproj" />
         <entry key="ScanFolders/MainWindow.axaml" value="ScanFolders/ScanFolders.csproj" />
         <entry key="ScanFolders/Views/ErrorDialog.axaml" value="ScanFolders/ScanFolders.csproj" />
+        <entry key="ScanFolders/Views/UpdateDialog.axaml" value="ScanFolders/ScanFolders.csproj" />
       </map>
     </option>
   </component>

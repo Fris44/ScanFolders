@@ -10,7 +10,10 @@ public static class Folders
         string[] dirs = Directory.GetDirectories(path);
         foreach (var dir in dirs) //TODO: Find if there's a better way to do this instead of multiple if-statements
         {
-            if (dir == path + "/00-Translations" || dir == path + "/01-Proofread") return;
+            if (dir == path + "/00-Translations" || dir == path + "/01-Proofread" || dir == path + "/Translations" ||
+                dir == path + "/Proofread" || dir == path + "/translations" ||  dir == path + "/proofread" ||
+                dir == path + "/Scripts" || dir == path + "/scripts" || dir == path + "/TL" || dir == path + "/tl" ||
+                dir == path + "/Tl" || dir == path + "/PR" || dir == path + "/pr" || dir == path + "/Pr") return; //TODO: Set-up a regex or something to get rid of this abomination
             if (tl == true)
             {
                 Directory.CreateDirectory(dir + "/08-TL/");

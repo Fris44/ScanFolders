@@ -36,18 +36,16 @@ namespace ScanFolders
         {
             selection = 1;
             Menu.IsVisible = false;
+            Sel2Lbl.IsVisible = false;
             Directory.IsVisible = true;
         }
 
         private void ScanBtn_OnClick(object? sender, RoutedEventArgs e)
         {
-            //ErrorMessages.ToErrorMessage(38);
-            //OnError();
-            
             selection = 2;
             Menu.IsVisible = false;
-            Directory.IsVisible = true;
             Sel2Lbl.IsVisible = true;
+            Directory.IsVisible = true;
         }
 
         private void ExitBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -91,7 +89,6 @@ namespace ScanFolders
         private void BckDir_OnClick(object? sender, RoutedEventArgs e)
         {
             Directory.IsVisible = false;
-            Sel2Lbl.IsVisible = false;
             Menu.IsVisible = true;
         }
         
@@ -114,7 +111,7 @@ namespace ScanFolders
             else
             {
                 if (AmountTxt.Text == "" || StartChTxt.Text == "" || SplitTxt.Text == "" ||
-                    (bonusSel != 0 && BonusTxt.Text == ""))
+                    (bonusSel != 0 && BonusTxt.Text == "") || PrefixTxt.Text == "")
                 {
                     
                 }
@@ -126,7 +123,8 @@ namespace ScanFolders
 
                     ChaptersMenu.IsVisible = false;
                     LoadBar.IsVisible = true;
-                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text, TlChBox.IsChecked, PrChBox.IsChecked);
+                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text, TlChBox.IsChecked, PrChBox.IsChecked,
+                        PrefixTxt.Text);
                     LoadBar.IsVisible = false;
                     Done.IsVisible = true;
                 }
