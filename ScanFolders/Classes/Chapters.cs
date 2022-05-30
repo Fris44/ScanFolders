@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace ScanFolders.Classes;
 
-public class Chapters
+public static class Chapters
 {
     private static List<string> bonusList = new List<string>();
 
-    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh)
+    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh, bool? tl, bool? pr)
     {
         for (int i = begin; i < amount + begin; i++)
         {
@@ -42,6 +42,16 @@ public class Chapters
         if (bonusSel != 0)
         {
             BonusChapter(bonusSel, bonusCh, path, begin, amount);
+        }
+
+        if (tl == true)
+        {
+            Directory.CreateDirectory(path + "/00-Translations/");
+        }
+
+        if (pr == true)
+        {
+            Directory.CreateDirectory(path + "/01-Proofread/");
         }
     }
 

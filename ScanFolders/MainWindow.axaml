@@ -12,18 +12,21 @@
             <!--<Button Click="Button_OnClick">Test</Button>-->
             
             <!--Button for selection 1 (make folders for x amount of chapters)-->
-            <Button x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5" Content="Create chapter folders" HorizontalContentAlignment="Center" Margin="5"/>
+            <Button x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5" Content="Create chapter folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folder for x amount of chapters"/>
             
             <!--Button for selection 2 (make scan-related folder)-->
-            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Not yet implemented"/>
+            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folders for scan-related roles"/>
             
                 <!--Exit button-->
             <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit" HorizontalContentAlignment="Center" Margin="5"/>
         </StackPanel>
         <Grid x:Name="Directory" IsVisible="False">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False"  MinWidth="300" Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False"/>
-                <Button x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label FontWeight="Bold" x:Name="Sel2Lbl" IsVisible="False">Select the folder with the chapter folders in them, not an individual chapter folder!!!</Label>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False"  MinWidth="300" Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False"/>
+                    <Button x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder"/>
+                </StackPanel>
             </StackPanel>
             <Button x:Name="NxtDir" Content="Next" IsEnabled="False" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtDir_OnClick"></Button>
             <Button x:Name="BckDir" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="BckDir_OnClick"/>
@@ -31,7 +34,7 @@
         <Grid x:Name="ChaptersMenu" IsVisible="False">
             <StackPanel>
                 <TextBox x:Name="AmountTxt" Watermark="Amount of chapters (ex. &quot;10&quot;)"></TextBox>
-                <TextBox x:Name="SplitTxt" Watermark="How many parts are chapters split (ex. &quot;2&quot;)"></TextBox>
+                <TextBox x:Name="SplitTxt" Watermark="How many parts are chapters split in (ex. &quot;2&quot;)"></TextBox>
                 <TextBox x:Name="StartChTxt" Watermark="Number of the first chapter (ex. &quot;1&quot;)"></TextBox>
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="BonusNone" Tag="BonusNone" IsChecked="True" Checked="BonusButtonChecked">No bonus chapters</RadioButton>
@@ -39,9 +42,15 @@
                     <RadioButton x:Name="BonusAll" Tag="BonusAll" Checked="BonusButtonChecked">Bonus with every chapter</RadioButton>
                 </StackPanel>
                 <TextBox x:Name="BonusTxt" IsVisible="False"/>
+                <CheckBox Name="TlChBox">
+                    <TextBlock>Add Translations folder to root folder</TextBlock>
+                </CheckBox>
+                <CheckBox Name="PrChBox">
+                    <TextBlock>Add Proofread folder to root folder</TextBlock>
+                </CheckBox>
             </StackPanel>
             <Button x:Name="NxtCh" Content="Next" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtCh_OnClick"/>
-            <Button x:Name="BckCh" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="BckCh_OnClick"/>
+            <Button x:Name="BckCh" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="Bck_OnClick"/>
         </Grid>
         <Grid x:Name="LoadBar" IsVisible="False">
             <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" IsIndeterminate="True"/>
@@ -52,6 +61,33 @@
                 <Button x:Name="MenuDir" Content="Return the main menu" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="MenuDir_OnClick"/>
                 <Button x:Name="ExitDir" Content="Exit" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick"/>
             </StackPanel>
+        </Grid>
+        <Grid x:Name="Folder" IsVisible="False"> <!--Add "Enable All" Button-->
+            <StackPanel Margin="10">
+                <Label FontWeight="Bold">What folders per chapter folder</Label>
+                <StackPanel Margin="10,0">
+                    <CheckBox Name="TlBox" IsThreeState="False">
+                        <TextBlock>Translation</TextBlock>
+                    </CheckBox>
+                    <CheckBox Name="PrBox">
+                        <TextBlock>Proofread</TextBlock>
+                    </CheckBox>
+                    <CheckBox Name="RawsBox" IsChecked="True">
+                        <TextBlock>Raws</TextBlock>
+                    </CheckBox>
+                    <CheckBox Name="ClrdBox" IsChecked="True">
+                        <TextBlock>Clear/Redraw</TextBlock>
+                    </CheckBox>
+                    <CheckBox Name="TsBox" IsChecked="True">
+                        <TextBlock>Typeset</TextBlock>
+                    </CheckBox>
+                    <CheckBox Name="QcBox" IsChecked="True">
+                        <TextBlock>QC</TextBlock>
+                    </CheckBox>
+                </StackPanel>
+            </StackPanel>
+            <Button x:Name="NxtFolder" Content="Next" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtFolder_OnClick"/>
+            <Button x:Name="BckFolder" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="Bck_OnClick"/>
         </Grid>
     </Grid>
 </Window>

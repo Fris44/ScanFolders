@@ -41,12 +41,13 @@ namespace ScanFolders
 
         private void ScanBtn_OnClick(object? sender, RoutedEventArgs e)
         {
-            ErrorMessages.ToErrorMessage(38);
-            OnError();
+            //ErrorMessages.ToErrorMessage(38);
+            //OnError();
             
-            // selection = 2;
-            // Menu.IsVisible = false;
-            // Directory.IsVisible = true;
+            selection = 2;
+            Menu.IsVisible = false;
+            Directory.IsVisible = true;
+            Sel2Lbl.IsVisible = true;
         }
 
         private void ExitBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -58,6 +59,7 @@ namespace ScanFolders
         {
             var dlg = new OpenFolderDialog();
             var result = await dlg.ShowAsync(this);
+            if (result == null) return;
             path = result;
             DirText.Text = path;
             if (CheckPermissions.IsDirectoryWritable(path) == true)
@@ -81,7 +83,7 @@ namespace ScanFolders
                     ChaptersMenu.IsVisible = true;
                     break;
                 case 2:
-                    Menu.IsVisible = true;
+                    Folder.IsVisible = true;
                     break;
             }
         }
@@ -89,6 +91,7 @@ namespace ScanFolders
         private void BckDir_OnClick(object? sender, RoutedEventArgs e)
         {
             Directory.IsVisible = false;
+            Sel2Lbl.IsVisible = false;
             Menu.IsVisible = true;
         }
         
@@ -123,16 +126,17 @@ namespace ScanFolders
 
                     ChaptersMenu.IsVisible = false;
                     LoadBar.IsVisible = true;
-                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text);
+                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text, TlChBox.IsChecked, PrChBox.IsChecked);
                     LoadBar.IsVisible = false;
                     Done.IsVisible = true;
                 }
             }
         }
         
-        private void BckCh_OnClick(object? sender, RoutedEventArgs e)
+        private void Bck_OnClick(object? sender, RoutedEventArgs e)
         {
             ChaptersMenu.IsVisible = false;
+            Folder.IsVisible = false;
             Directory.IsVisible = true;
         }
 
@@ -183,6 +187,15 @@ namespace ScanFolders
         {
             Done.IsVisible = false;
             Menu.IsVisible = true;
+        }
+
+        private void NxtFolder_OnClick(object? sender, RoutedEventArgs e)
+        {
+            Folder.IsVisible = false;
+            LoadBar.IsVisible = true;
+            Folders.CreateFolders(path, TlBox.IsChecked, PrBox.IsChecked, RawsBox.IsChecked, ClrdBox.IsChecked, TsBox.IsChecked, QcBox.IsChecked);
+            LoadBar.IsVisible = false;
+            Done.IsVisible = true;
         }
     }
 }
