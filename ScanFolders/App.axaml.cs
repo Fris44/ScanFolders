@@ -19,7 +19,6 @@ namespace ScanFolders
             {
                 desktop.MainWindow = new MainWindow();
             }
-
             base.OnFrameworkInitializationCompleted();
         }
     }

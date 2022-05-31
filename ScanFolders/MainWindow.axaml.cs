@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -25,7 +26,7 @@ namespace ScanFolders
         string bonusString = null;
         string beginString = null;
         private int bonusSel = 0;
-        
+
 
         public MainWindow()
         {
@@ -175,11 +176,6 @@ namespace ScanFolders
                 }
             }
         }
-        
-        private static bool isValid(String str)
-        {
-            return Regex.IsMatch(str, @"^[a-zA-Z]+$");
-        }
 
         private void MenuDir_OnClick(object? sender, RoutedEventArgs e)
         {
@@ -194,6 +190,16 @@ namespace ScanFolders
             Folders.CreateFolders(path, TlBox.IsChecked, PrBox.IsChecked, RawsBox.IsChecked, ClrdBox.IsChecked, TsBox.IsChecked, QcBox.IsChecked);
             LoadBar.IsVisible = false;
             Done.IsVisible = true;
+        }
+
+        private async void UpdateBtn_OnClick(object? sender, RoutedEventArgs e)
+        {
+            int update = await UpdateCheck.CheckGitHubNewerVersion();
+            if (update == 1)
+            {
+                var up = new UpdateDialog();
+                up.ShowDialog(this);
+            }
         }
     }
 }

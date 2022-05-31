@@ -17,7 +17,9 @@
             <!--Button for selection 2 (make scan-related folder)-->
             <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folders for scan-related roles&#13;Like Raws, TS, TL"/>
             
-                <!--Exit button-->
+            <Button x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5" Content="Check for updates" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Check for updates"></Button>
+            
+            <!--Exit button-->
             <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit" HorizontalContentAlignment="Center" Margin="5"/>
         </StackPanel>
         <Grid x:Name="Directory" IsVisible="False">

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using ScanFolders.Views;
 
 namespace ScanFolders.Classes;
 using Octokit;
 
 public class UpdateCheck
 {
-    public static async System.Threading.Tasks.Task CheckGitHubNewerVersion()
+    public static async Task<int> CheckGitHubNewerVersion()
     {
         GitHubClient client = new GitHubClient(new ProductHeaderValue("ScanFolders"));
         IReadOnlyList<Release> releases = await client.Repository.Release.GetAll("Fris44", "ScanFolders");
@@ -17,7 +19,11 @@ public class UpdateCheck
         int versionComparison = localVersion.CompareTo(latestGitHubVersion);
         if (versionComparison < 0)
         {
-            
+            return 1;
+        }
+        else
+        {
+            return 0;
         }
     }
 }
