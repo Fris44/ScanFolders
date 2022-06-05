@@ -95,7 +95,7 @@
             <Label FontWeight="Bold" FontSize="24" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Settings</Label>
             <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox x:Name="PrefixTxt" MinWidth="200" TextWrapping="NoWrap" Watermark="Chapter folder prefix" Text="{Binding Prefix}" ToolTip.Tip="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)"/>
-                <TextBlock HorizontalAlignment="Center">Change folder names here</TextBlock>
+                <TextBlock HorizontalAlignment="Center">Change folder names here (Scan folders only)</TextBlock>
                 <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
                     <TextBox x:Name="SettingsRawsBox" MinWidth="200" TextWrapping="NoWrap" Watermark="Raws Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Raws}"/>
                     <TextBox x:Name="SettingsClRdBox" MinWidth="200" TextWrapping="NoWrap" Watermark="CLRD Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding ClRd}"/>
