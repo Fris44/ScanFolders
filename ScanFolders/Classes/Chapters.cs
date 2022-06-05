@@ -9,8 +9,9 @@ public static class Chapters
 {
     private static List<string> bonusList = new List<string>();
 
-    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh, bool? tl, bool? pr, string dir)
+    public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh, bool? tl, bool? pr)
     {
+        string dir = SettingsFile.ChapterFolder;
         for (int i = begin; i < amount + begin; i++)
         {
             if (split is 0 or 1)

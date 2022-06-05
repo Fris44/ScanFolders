@@ -1,0 +1,12 @@
+title = "ScanFolder Settings"
+
+[folders]
+Translation = "08-Translation"
+Proofread = "09-Proofread"
+Raws = "01-Raws"
+CLRD = "02-CLRD"
+TS = "03-TS"
+QC = "04-QC"
+
+[chapters]
+Prefix = "Chapter "

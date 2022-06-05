@@ -17,6 +17,7 @@ namespace ScanFolders
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
+                SettingsFile.GetSettings();
                 desktop.MainWindow = new MainWindow();
             }
             base.OnFrameworkInitializationCompleted();

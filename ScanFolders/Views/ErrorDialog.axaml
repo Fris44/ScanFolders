@@ -4,7 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.Views.ErrorDialog"
-        Title="ErrorDialog" Width="200" Height="150" MinHeight="200" MinWidth="150">
+        Title="ErrorDialog" Width="200" Height="150" MinHeight="200" MinWidth="150"
+        WindowStartupLocation="CenterOwner">
         <Grid>
         <!--<Label x:Name="ErrorLbl" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{Binding Error}"/>-->
         <TextBlock x:Name="ErrorTxt" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 30" Text="{Binding Error}"/>

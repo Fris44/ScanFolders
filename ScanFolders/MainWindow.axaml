@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.MainWindow"
-        Title="ScanFolders">
+        Title="ScanFolders" WindowStartupLocation="CenterScreen">
 <Grid>
         <!--StackPanel for Menu-->
         <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" IsVisible="True">
@@ -17,7 +17,7 @@
             <!--Button for selection 2 (make scan-related folder)-->
             <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5" Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Create folders for scan-related roles&#13;Like Raws, TS, TL"/>
             
-            <Button x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5" Content="Check for updates" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Check for updates"></Button>
+            <Button x:Name="SettingsBtn" MinWidth="200" Click="SettingsBtn_OnClick" Padding="15,5" Content="Settings" HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Open settings menu"/>
             
             <!--Exit button-->
             <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit" HorizontalContentAlignment="Center" Margin="5"/>
@@ -26,7 +26,7 @@
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontWeight="Bold" x:Name="Sel2Lbl" IsVisible="False">Select the folder with the chapter folders in them, not an individual chapter folder!!!</Label>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False"  MinWidth="300" Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False"/>
+                    <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False" MinWidth="300" Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False"/>
                     <Button x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder"/>
                 </StackPanel>
             </StackPanel>
@@ -35,7 +35,6 @@
         </Grid>
         <Grid x:Name="ChaptersMenu" IsVisible="False">
             <StackPanel>
-                <TextBox x:Name="PrefixTxt" Watermark="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)"></TextBox>
                 <TextBox x:Name="AmountTxt" Watermark="Amount of chapters (ex. &quot;10&quot;)"></TextBox>
                 <TextBox x:Name="SplitTxt" Watermark="How many parts are chapters split in (ex. &quot;2&quot;)"></TextBox>
                 <TextBox x:Name="StartChTxt" Watermark="Number of the first chapter (ex. &quot;1&quot;)"></TextBox>
@@ -59,17 +58,17 @@
             <ProgressBar x:Name="ProgressBar" Minimum="0" Maximum="100" IsIndeterminate="True"/>
         </Grid>
         <Grid x:Name="Done" IsVisible="False">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock FontSize="30" FontWeight="Bold" HorizontalAlignment="Center">Done</TextBlock>
-                <Button x:Name="MenuDir" Content="Return the main menu" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="MenuDir_OnClick"/>
-                <Button x:Name="ExitDir" Content="Exit" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                <TextBlock FontSize="30" Margin="5" Padding="15, 5" FontWeight="Bold" HorizontalAlignment="Center">Done</TextBlock>
+                <Button x:Name="MenuDir" Margin="5" Content="Return the main menu" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="MenuDir_OnClick"/>
+                <Button x:Name="ExitDir" Margin="5" Content="Exit" MinWidth="200" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="Folder" IsVisible="False"> <!--Add "Enable All" Button-->
             <StackPanel Margin="10">
                 <Label FontWeight="Bold">What folders per chapter folder</Label>
                 <StackPanel Margin="10,0">
-                    <CheckBox Name="TlBox" IsThreeState="False">
+                    <CheckBox Name="TlBox">
                         <TextBlock>Translation</TextBlock>
                     </CheckBox>
                     <CheckBox Name="PrBox">
@@ -91,6 +90,27 @@
             </StackPanel>
             <Button x:Name="NxtFolder" Content="Next" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25" Click="NxtFolder_OnClick"/>
             <Button x:Name="BckFolder" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="Bck_OnClick"/>
+        </Grid>
+        <Grid x:Name="Settings" IsVisible="False">
+            <Label FontWeight="Bold" FontSize="24" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top">Settings</Label>
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox x:Name="PrefixTxt" MinWidth="200" TextWrapping="NoWrap" Watermark="Chapter folder prefix" Text="{Binding Prefix}" ToolTip.Tip="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)"/>
+                <TextBlock HorizontalAlignment="Center">Change folder names here</TextBlock>
+                <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBox x:Name="SettingsRawsBox" MinWidth="200" TextWrapping="NoWrap" Watermark="Raws Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Raws}"/>
+                    <TextBox x:Name="SettingsClRdBox" MinWidth="200" TextWrapping="NoWrap" Watermark="CLRD Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding ClRd}"/>
+                    <TextBox x:Name="SettingsTsBox" MinWidth="200" TextWrapping="NoWrap" Watermark="TS Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Ts}"/>
+                </StackPanel>
+                <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                    <TextBox x:Name="SettingsQcBox" MinWidth="200" TextWrapping="NoWrap" Watermark="QC Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Qc}"/>
+                    <TextBox x:Name="SettingsTlBox" MinWidth="200" TextWrapping="NoWrap" Watermark="Translation Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Translation}"/>
+                    <TextBox x:Name="SettingsPrBox" MinWidth="200" TextWrapping="NoWrap" Watermark="Proofread Folder Name" Margin="5" Padding="15, 5" AcceptsReturn="False" Text="{Binding Proofread}"/>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center">Other</TextBlock>
+                <Button x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5" Content="Check for updates" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="5" ToolTip.Tip="Check for updates"/>
+            </StackPanel>
+            <Button x:Name="BckSettings" Content="Back" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="BckSttngs_OnClick"/>
+            <Button x:Name="SaveSettings" Content="Save" MinWidth="50" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25" Click="SaveSttngs_OnClick"/>
         </Grid>
     </Grid>
 </Window>

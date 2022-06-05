@@ -27,10 +27,20 @@ namespace ScanFolders
         string beginString = null;
         private int bonusSel = 0;
 
+        private MainWindowViewModel vm;
+
 
         public MainWindow()
         {
             InitializeComponent();
+
+            vm = new MainWindowViewModel();
+            this.DataContext = vm;
+            int error = ErrorMessages.Error;
+            if (error != 0)
+            {
+                OnError();
+            }
         }
 
         private void ChBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -68,6 +78,7 @@ namespace ScanFolders
             else
             {
                 NxtDir.IsEnabled = false;
+                ErrorMessages.ToErrorMessage(101);
                 OnError();
             }
 
@@ -114,7 +125,8 @@ namespace ScanFolders
                 if (AmountTxt.Text == "" || StartChTxt.Text == "" || SplitTxt.Text == "" ||
                     (bonusSel != 0 && BonusTxt.Text == "") || PrefixTxt.Text == "")
                 {
-                    
+                    ErrorMessages.ToErrorMessage(745);
+                    OnError();
                 }
                 else
                 {
@@ -124,8 +136,7 @@ namespace ScanFolders
 
                     ChaptersMenu.IsVisible = false;
                     LoadBar.IsVisible = true;
-                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text, TlChBox.IsChecked, PrChBox.IsChecked,
-                        PrefixTxt.Text);
+                    Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path,BonusTxt.Text, TlChBox.IsChecked, PrChBox.IsChecked);
                     LoadBar.IsVisible = false;
                     Done.IsVisible = true;
                 }
@@ -144,7 +155,7 @@ namespace ScanFolders
             
         }
 
-        private void OnError()
+        public void OnError()
         {
             var ed = new ErrorDialog();
             ed.ShowDialog(this);
@@ -197,9 +208,32 @@ namespace ScanFolders
             int update = await UpdateCheck.CheckGitHubNewerVersion();
             if (update == 1)
             {
+                
                 var up = new UpdateDialog();
-                up.ShowDialog(this);
+                await up.ShowDialog(this);
             }
         }
+
+        private void SettingsBtn_OnClick(object? sender, RoutedEventArgs e)
+        {
+            Menu.IsVisible = false;
+            Settings.IsVisible = true;
+        }
+
+        private void BckSttngs_OnClick(object? sender, RoutedEventArgs e)
+        {
+            Settings.IsVisible = false;
+            Menu.IsVisible = true;
+        }
+
+        private void SaveSttngs_OnClick(object? sender, RoutedEventArgs e)
+        {
+            int result = SettingsFile.UpdateSettings(SettingsTlBox.Text, SettingsPrBox.Text, SettingsRawsBox.Text,
+                SettingsClRdBox.Text, SettingsTsBox.Text, SettingsQcBox.Text, PrefixTxt.Text);
+            ErrorMessages.ToErrorMessage(result);
+            OnError();
+            SettingsFile.GetSettings();
+        }
+        
     }
 }

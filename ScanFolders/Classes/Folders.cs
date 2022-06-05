@@ -1,5 +1,6 @@
 using System.IO;
 using HarfBuzzSharp;
+using static ScanFolders.Classes.SettingsFile;
 
 namespace ScanFolders.Classes;
 
@@ -16,40 +17,40 @@ public static class Folders
                 dir == path + "/Tl" || dir == path + "/PR" || dir == path + "/pr" || dir == path + "/Pr") return; //TODO: Set-up a regex or something to get rid of this abomination
             if (tl == true)
             {
-                Directory.CreateDirectory(dir + "/08-TL/");
+                Directory.CreateDirectory(dir + "/" + TranslationFolder + "/");
             }
 
             if (pr == true)
             {
-                Directory.CreateDirectory(dir + "/09-PR/");
+                Directory.CreateDirectory(dir + "/" + ProofreadFolder + "/");
             }
 
             if (raw == true)
             {
-                Directory.CreateDirectory(dir + "/00-RAWS/");
+                Directory.CreateDirectory(dir + "/" + RawsFolder + "/");
 
                 string[] files = Directory.GetFiles(dir);
                 foreach (var file in files)
                 {
                     string fileName = Path.GetFileName(file);
-                    string destFile = Path.Combine(dir + "/00-RAWS/", fileName);
+                    string destFile = Path.Combine(dir + "/" + RawsFolder + "/", fileName);
                     File.Move(file, destFile);
                 }
             }
 
             if (clrd == true)
             {
-                Directory.CreateDirectory(dir + "/01-CLRD/");
+                Directory.CreateDirectory(dir + "/" + ClRdFolder + "/");
             }
 
             if (ts == true)
             {
-                Directory.CreateDirectory(dir + "/02-TS/");
+                Directory.CreateDirectory(dir + "/" + TsFolder + "/");
             }
 
             if (qc == true)
             {
-                Directory.CreateDirectory(dir + "/03-QC");
+                Directory.CreateDirectory(dir + "/" + QcFolder + "/");
             }
         }
     }

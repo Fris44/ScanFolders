@@ -21,7 +21,7 @@ public class ErrorDialogViewModel : INotifyPropertyChanged
                 PropertyChangedEventHandler handler = PropertyChanged;
                 if (handler != null)
                 {
-                    handler(this, new PropertyChangedEventArgs("Error"));
+                    handler(this, new PropertyChangedEventArgs(nameof(Error)));
                 }
             }
         }
