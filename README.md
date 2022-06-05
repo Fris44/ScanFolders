@@ -7,4 +7,4 @@ GUI version of a personal program I made for creating folders for scanlation.
 2. Allows users to create folders for specific scanlation roles per chapter.
 
 ## Requirements
-[.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+[.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
