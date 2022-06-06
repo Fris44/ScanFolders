@@ -8,7 +8,8 @@ namespace ScanFolders.Views;
 
 public partial class ErrorDialog : Window
 {
-    private ErrorDialogViewModel vm;
+    private readonly ErrorDialogViewModel vm;
+
     public ErrorDialog()
     {
         InitializeComponent();
@@ -16,16 +17,16 @@ public partial class ErrorDialog : Window
         this.AttachDevTools();
 #endif
         vm = new ErrorDialogViewModel();
-        this.DataContext = vm;
+        DataContext = vm;
     }
 
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
     }
-    
+
     private void CloseBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
     }
 }

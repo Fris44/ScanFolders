@@ -11,7 +11,7 @@ public partial class UpdateDialog : Window
     {
         InitializeComponent();
 #if DEBUG
-            this.AttachDevTools();
+        this.AttachDevTools();
 #endif
     }
 
@@ -22,6 +22,6 @@ public partial class UpdateDialog : Window
 
     private void CloseBtn_OnClick(object? sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
     }
 }

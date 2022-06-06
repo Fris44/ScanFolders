@@ -9,25 +9,26 @@ public class CheckPermissions
     {
         try
         {
-            using (FileStream fs = File.Create(
+            using (var fs = File.Create(
                        Path.Combine(
-                           dirPath, 
+                           dirPath,
                            Path.GetRandomFileName()
-                       ), 
+                       ),
                        1,
                        FileOptions.DeleteOnClose)
                   )
-            { }
+            {
+            }
+
             return true;
         }
         catch (UnauthorizedAccessException)
         {
             ErrorMessages.ToErrorMessage(101);
-            
+
             if (throwIfFails)
                 throw;
-            else
-                return false;
+            return false;
         }
     }
 }

@@ -6,9 +6,13 @@
         x:Class="ScanFolders.Views.ErrorDialog"
         Title="ErrorDialog" Width="200" Height="150" MinHeight="200" MinWidth="150"
         WindowStartupLocation="CenterOwner">
-        <Grid>
+    <Grid>
         <!--<Label x:Name="ErrorLbl" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{Binding Error}"/>-->
-        <TextBlock x:Name="ErrorTxt" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 30" Text="{Binding Error}"/>
-        <Button x:Name="CloseBtn" Click="CloseBtn_OnClick" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="10">Close</Button>
-        </Grid>
+        <TextBlock x:Name="ErrorTxt" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"
+                   VerticalAlignment="Top" Margin="0, 30" Text="{Binding Error}" />
+        <Button x:Name="CloseBtn" Click="CloseBtn_OnClick" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                Margin="10">
+            Close
+        </Button>
+    </Grid>
 </Window>

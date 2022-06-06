@@ -5,25 +5,22 @@ namespace ScanFolders.Viewmodels;
 
 public class ErrorDialogViewModel : INotifyPropertyChanged
 {
-    string error = ErrorMessages.Message;
-
-
-    public event PropertyChangedEventHandler PropertyChanged;
+    private string error = ErrorMessages.Message;
 
     public string Error
     {
-        get { return error; }
+        get => error;
         set
         {
             if (error != value)
             {
                 error = value;
-                PropertyChangedEventHandler handler = PropertyChanged;
-                if (handler != null)
-                {
-                    handler(this, new PropertyChangedEventArgs(nameof(Error)));
-                }
+                var handler = PropertyChanged;
+                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Error)));
             }
         }
     }
+
+
+    public event PropertyChangedEventHandler PropertyChanged;
 }
