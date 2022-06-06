@@ -1,5 +1,5 @@
 # ScanFolders
-GUI version of a personal program I made for creating folders for scanlation.
+A crudely made GUI version of a personal program I made for creating folders for scanlation.
 [Here's the link to the download (or go to the Releases tab)](https://github.com/TheFrisianGamer/ScanFolders/releases/latest)
 
 ## Features
