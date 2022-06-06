@@ -39,9 +39,9 @@ public static class Chapters
 
         if (bonusSel != 0) BonusChapter(bonusSel, bonusCh, path, begin, amount, dir, split);
 
-        if (tl == true) Directory.CreateDirectory(path + "/00-Translations/");
+        if (tl == true) Directory.CreateDirectory(path + "/Translations/");
 
-        if (pr == true) Directory.CreateDirectory(path + "/01-Proofread/");
+        if (pr == true) Directory.CreateDirectory(path + "/Proofread/");
     }
 
     private static void BonusChapter(int bonusSel, string bonusCh, string path, int begin, int amount, string dir,
@@ -143,13 +143,13 @@ public static class Chapters
                         var o = split * 10 + 10; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/ch " + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir  + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/ch " + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir  + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }
@@ -160,13 +160,13 @@ public static class Chapters
                         var o = split + 1; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/ch " + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir  + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/ch " + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir  + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }
@@ -180,13 +180,13 @@ public static class Chapters
                         var o = 50; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/ch " + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/ch " + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }
@@ -197,13 +197,13 @@ public static class Chapters
                         var o = 5; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/ch " + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/ch " + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }
