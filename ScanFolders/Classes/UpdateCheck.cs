@@ -13,7 +13,7 @@ public static class UpdateCheck
         IReadOnlyList<Release> releases = await client.Repository.Release.GetAll("Fris44", "ScanFolders");
 
         var latestGitHubVersion = new Version(releases[0].TagName);
-        var localVersion = new Version("1.0.0");
+        var localVersion = new Version("1.0.1");
 
         var versionComparison = localVersion.CompareTo(latestGitHubVersion);
         if (versionComparison < 0)
