@@ -13,24 +13,23 @@ public static class SettingsFile
     public static string TsFolder = "03-TS";
     public static string QcFolder = "04-QC";
     public static string ChapterFolder = "Chapter ";
+    private static readonly char[] IllegalChar = "<>:\"/\\|?*".ToCharArray();
 
 
     public static void GetSettings()
     {
         if (!File.Exists("config.toml")) CreateFile();
 
-        using (var reader = File.OpenText("config.toml"))
-        {
-            var table = TOML.Parse(reader);
+        using var reader = File.OpenText("config.toml");
+        var table = TOML.Parse(reader);
 
-            TranslationFolder = table["folders"]["Translation"];
-            ProofreadFolder = table["folders"]["Proofread"];
-            RawsFolder = table["folders"]["Raws"];
-            ClRdFolder = table["folders"]["CLRD"];
-            TsFolder = table["folders"]["TS"];
-            QcFolder = table["folders"]["QC"];
-            ChapterFolder = table["chapters"]["Prefix"];
-        }
+        TranslationFolder = table["folders"]["Translation"];
+        ProofreadFolder = table["folders"]["Proofread"];
+        RawsFolder = table["folders"]["Raws"];
+        ClRdFolder = table["folders"]["CLRD"];
+        TsFolder = table["folders"]["TS"];
+        QcFolder = table["folders"]["QC"];
+        ChapterFolder = table["chapters"]["Prefix"];
     }
 
     public static int UpdateSettings(string tl, string pr, string raws, string clrd, string ts, string qc,
@@ -38,6 +37,13 @@ public static class SettingsFile
     {
         if (tl == "" || pr == "" || raws == "" || clrd == "" || ts == "" || qc == "" || prefix == "")
             return 745;
+
+        if (tl.IndexOfAny(IllegalChar) >= 0 || pr.IndexOfAny(IllegalChar) >= 0 ||
+            raws.IndexOfAny(IllegalChar) >= 0 ||
+            clrd.IndexOfAny(IllegalChar) >= 0 || ts.IndexOfAny(IllegalChar) >= 0 ||
+            qc.IndexOfAny(IllegalChar) >= 0 ||
+            prefix.IndexOfAny(IllegalChar) >= 0)
+            return 746;
         try
         {
             var toml = new TomlTable //TODO: Find way to edit instead of remaking
@@ -81,7 +87,7 @@ public static class SettingsFile
         }
     }
 
-    public static void CreateFile()
+    private static void CreateFile()
     {
         var toml = new TomlTable
         {
@@ -105,11 +111,9 @@ public static class SettingsFile
 
         try
         {
-            using (var writer = File.CreateText("config.toml"))
-            {
-                toml.WriteTo(writer);
-                writer.Flush();
-            }
+            using var writer = File.CreateText("config.toml");
+            toml.WriteTo(writer);
+            writer.Flush();
         }
         catch (Exception e)
         {

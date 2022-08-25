@@ -1,9 +1,9 @@
 ﻿namespace ScanFolders.Classes;
 
-public class ErrorMessages
+public static class ErrorMessages
 {
     public static string Message = null!;
-    public static int Error = 0;
+    public const int Error = 0;
 
     public static void ToErrorMessage(int error)
     {
@@ -17,6 +17,7 @@ public class ErrorMessages
                 "Insufficient permissions to create configuration file. Try running the program as administrator or choose a different directory",
             0 => "Nothing went wrong. If this pops up it means some code needs fixing!",
             8 => "Saved successfully",
+            746 => "One of the fields contains an illegal character ( < > : \" / \\ | ? * )",
             _ => "Something went wrong"
         };
     }

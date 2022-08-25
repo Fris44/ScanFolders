@@ -5,7 +5,7 @@ using Octokit;
 
 namespace ScanFolders.Classes;
 
-public class UpdateCheck
+public static class UpdateCheck
 {
     public static async Task<int> CheckGitHubNewerVersion()
     {

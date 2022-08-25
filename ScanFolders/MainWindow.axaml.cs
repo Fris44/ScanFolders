@@ -20,14 +20,12 @@ public partial class MainWindow : Window
     private int selection;
     private string splitString = null;
 
-    private readonly MainWindowViewModel vm;
-
 
     public MainWindow()
     {
         InitializeComponent();
 
-        vm = new MainWindowViewModel();
+        var vm = new MainWindowViewModel();
         DataContext = vm;
         var error = ErrorMessages.Error;
         if (error != 0) OnError();

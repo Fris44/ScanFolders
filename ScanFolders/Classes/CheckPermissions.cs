@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ScanFolders.Classes;
 
-public class CheckPermissions
+public static class CheckPermissions
 {
     public static bool IsDirectoryWritable(string dirPath, bool throwIfFails = false)
     {

@@ -7,7 +7,7 @@ namespace ScanFolders.Classes;
 
 public static class Chapters
 {
-    private static List<string> bonusList = new();
+    private static List<string> _bonusList = new();
 
     public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh,
         bool? tl, bool? pr)
@@ -49,13 +49,13 @@ public static class Chapters
     {
         if (bonusSel == 1)
         {
-            bonusList = bonusCh.Split(',').ToList();
-            var bonusListInt = bonusList.Select(int.Parse).ToList();
+            _bonusList = bonusCh.Split(',').ToList();
+            var bonusListInt = _bonusList.Select(int.Parse).ToList();
             var bonusMax = bonusListInt.Max(); //TODO: This should look for how many times the same number comes by, and then look if it's more than 10 when combined with split
             if (split >= 5)
             {
                 if (split + bonusMax >= 10)
-                    foreach (var bonus in bonusList)
+                    foreach (var bonus in _bonusList)
                     {
                         var bonusInt = Convert.ToInt32(bonus);
                         var o = split * 10 + 10; //TODO: Make this more efficient
@@ -73,7 +73,7 @@ public static class Chapters
                             }
                     }
                 else
-                    foreach (var bonus in bonusList)
+                    foreach (var bonus in _bonusList)
                     {
                         var bonusInt = Convert.ToInt32(bonus);
                         var o = split + 1; //TODO: Make this more efficient
@@ -94,7 +94,7 @@ public static class Chapters
             else
             {
                 if (split + bonusMax >= 10)
-                    foreach (var bonus in bonusList)
+                    foreach (var bonus in _bonusList)
                     {
                         var bonusInt = Convert.ToInt32(bonus);
                         var o = 50; //TODO: Make this more efficient
@@ -112,7 +112,7 @@ public static class Chapters
                             }
                     }
                 else
-                    foreach (var bonus in bonusList)
+                    foreach (var bonus in _bonusList)
                     {
                         var bonusInt = Convert.ToInt32(bonus);
                         var o = 5; //TODO: Make this more efficient
