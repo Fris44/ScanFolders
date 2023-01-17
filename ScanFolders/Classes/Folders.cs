@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using static ScanFolders.Classes.SettingsFile;
 
@@ -10,11 +11,14 @@ public static class Folders
         var dirs = Directory.GetDirectories(path);
         foreach (var dir in dirs) //TODO: Find if there's a better way to do this instead of multiple if-statements
         {
-            if (dir == path + "/00-Translations" || dir == path + "/01-Proofread" || dir == path + "/Translations" ||
-                dir == path + "/Proofread" || dir == path + "/translations" || dir == path + "/proofread" ||
-                dir == path + "/Scripts" || dir == path + "/scripts" || dir == path + "/TL" || dir == path + "/tl" ||
-                dir == path + "/Tl" || dir == path + "/PR" || dir == path + "/pr" ||
-                dir == path + "/Pr") return; //TODO: Set-up a regex or something to get rid of this abomination
+            if (dir.Equals(path + "/00-translations", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/01-proofread", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/translations", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/proofread", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/scripts", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/script", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/tl", StringComparison.OrdinalIgnoreCase) ||
+                dir.Equals(path + "/pr", StringComparison.OrdinalIgnoreCase)) return; //Oh well
             if (tl == true) Directory.CreateDirectory(dir + "/" + TranslationFolder + "/");
 
             if (pr == true) Directory.CreateDirectory(dir + "/" + ProofreadFolder + "/");

@@ -12,15 +12,13 @@ public class ErrorDialogViewModel : INotifyPropertyChanged
         get => error;
         set
         {
-            if (error != value)
-            {
-                error = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Error)));
-            }
+            if (error == value) return;
+            error = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Error)));
         }
     }
 
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 }

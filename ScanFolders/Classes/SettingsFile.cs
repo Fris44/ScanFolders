@@ -5,7 +5,13 @@ using Tommy;
 namespace ScanFolders.Classes;
 
 public static class SettingsFile
-{
+{ 
+    /*
+     * It is safe to suppress a warning from this rule if you are developing an application
+     * and therefore have full control over access to the type that contains the static field.
+     * https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2211#when-to-suppress-warnings
+     */
+#pragma warning disable CA2211
     public static string TranslationFolder = "08-Translation";
     public static string ProofreadFolder = "09-Proofread";
     public static string RawsFolder = "01-Raws";
@@ -14,8 +20,8 @@ public static class SettingsFile
     public static string QcFolder = "04-QC";
     public static string ChapterFolder = "Chapter ";
     private static readonly char[] IllegalChar = "<>:\"/\\|?*".ToCharArray();
-
-
+#pragma warning restore CA2211
+    
     public static void GetSettings()
     {
         if (!File.Exists("config.toml")) CreateFile();

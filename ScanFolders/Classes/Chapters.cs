@@ -20,6 +20,8 @@ public static class Chapters
             }
             else
             {
+                // Incredibly over-engineered, but stops folders from appending with .01 etc.
+                // TODO: Find fix for above
                 var o = 1;
                 for (var j = 0; j < split; j++)
                 {
@@ -38,9 +40,7 @@ public static class Chapters
             }
 
         if (bonusSel != 0) BonusChapter(bonusSel, bonusCh, path, begin, amount, dir, split);
-
         if (tl == true) Directory.CreateDirectory(path + "/Translations/");
-
         if (pr == true) Directory.CreateDirectory(path + "/Proofread/");
     }
 
@@ -51,16 +51,22 @@ public static class Chapters
         {
             _bonusList = bonusCh.Split(',').ToList();
             var bonusListInt = _bonusList.Select(int.Parse).ToList();
-            var bonusMax = bonusListInt.Max(); //TODO: This should look for how many times the same number comes by, and then look if it's more than 10 when combined with split
+            var bonusMax = (from i in bonusListInt
+                group i by i
+                into grp
+                orderby grp.Count() descending
+                select grp.Count()).First();
+            var bonusMaxInt = (from i in bonusListInt
+                group i by i
+                into grp
+                orderby grp.Count() descending
+                select grp.Key).First();
             if (split >= 5)
-            {
-                if (split + bonusMax >= 10)
-                    foreach (var bonus in _bonusList)
+                foreach (var bonusInt in _bonusList.Select(bonus => Convert.ToInt32(bonus)))
+                    if (split + bonusMax >= 10 && bonusInt == bonusMaxInt)
                     {
-                        var bonusInt = Convert.ToInt32(bonus);
                         var o = split * 10 + 10; //TODO: Make this more efficient
                         var bonusLoop = 0;
-
                         while (bonusLoop == 0)
                             if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
                             {
@@ -72,13 +78,11 @@ public static class Chapters
                                 bonusLoop++;
                             }
                     }
-                else
-                    foreach (var bonus in _bonusList)
+
+                    else
                     {
-                        var bonusInt = Convert.ToInt32(bonus);
                         var o = split + 1; //TODO: Make this more efficient
                         var bonusLoop = 0;
-
                         while (bonusLoop == 0)
                             if (Directory.Exists(path + "/" + dir + bonusInt + "." + o + "/"))
                             {
@@ -90,13 +94,10 @@ public static class Chapters
                                 bonusLoop++;
                             }
                     }
-            }
             else
-            {
-                if (split + bonusMax >= 10)
-                    foreach (var bonus in _bonusList)
+                foreach (var bonusInt in _bonusList.Select(bonus => Convert.ToInt32(bonus)))
+                    if (split + bonusMax >= 10 && bonusInt == bonusMaxInt)
                     {
-                        var bonusInt = Convert.ToInt32(bonus);
                         var o = 50; //TODO: Make this more efficient
                         var bonusLoop = 0;
 
@@ -111,10 +112,9 @@ public static class Chapters
                                 bonusLoop++;
                             }
                     }
-                else
-                    foreach (var bonus in _bonusList)
+
+                    else
                     {
-                        var bonusInt = Convert.ToInt32(bonus);
                         var o = 5; //TODO: Make this more efficient
                         var bonusLoop = 0;
 
@@ -129,7 +129,6 @@ public static class Chapters
                                 bonusLoop++;
                             }
                     }
-            }
         }
         else
         {
@@ -143,13 +142,13 @@ public static class Chapters
                         var o = split * 10 + 10; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/" + dir  + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/" + dir  + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }
@@ -160,13 +159,13 @@ public static class Chapters
                         var o = split + 1; //TODO: Make this more efficient
                         var bonusLoop = 0;
                         while (bonusLoop == 0)
-                            if (Directory.Exists(path + "/" + dir  + i + "." + o + "/"))
+                            if (Directory.Exists(path + "/" + dir + i + "." + o + "/"))
                             {
                                 o++;
                             }
                             else
                             {
-                                Directory.CreateDirectory(path + "/" + dir  + i + "." + o + "/");
+                                Directory.CreateDirectory(path + "/" + dir + i + "." + o + "/");
                                 bonusLoop++;
                             }
                     }

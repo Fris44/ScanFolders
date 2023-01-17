@@ -2,24 +2,23 @@
 
 using System;
 using System.Linq;
+using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ScanFolders.Classes;
 using ScanFolders.Viewmodels;
 using ScanFolders.Views;
 
+//Stop ReSharper from crying about the buttons' unused parameters
+// ReSharper disable UnusedParameter.Local
+
 namespace ScanFolders;
 
 public partial class MainWindow : Window
 {
-    private static string path = null!;
-    private string amountString = null;
-    private string beginString = null;
+    private static string _path = null!;
     private int bonusSel;
-    private string bonusString = null;
     private int selection;
-    private string splitString = null;
-
 
     public MainWindow()
     {
@@ -27,8 +26,6 @@ public partial class MainWindow : Window
 
         var vm = new MainWindowViewModel();
         DataContext = vm;
-        var error = ErrorMessages.Error;
-        if (error != 0) OnError();
     }
 
     private void ChBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -57,9 +54,9 @@ public partial class MainWindow : Window
         var dlg = new OpenFolderDialog();
         var result = await dlg.ShowAsync(this);
         if (result == null) return;
-        path = result;
-        DirText.Text = path;
-        if (CheckPermissions.IsDirectoryWritable(path))
+        _path = result;
+        DirText.Text = _path;
+        if (CheckPermissions.IsDirectoryWritable(_path))
         {
             NxtDir.IsEnabled = true;
         }
@@ -95,7 +92,7 @@ public partial class MainWindow : Window
     {
         var charTestS = AmountTxt.Text + StartChTxt.Text + SplitTxt.Text + BonusTxt.Text; //Combine content of textboxes
         var charTest = charTestS.ToCharArray();
-        char[] bonusTest = null;
+        char[] bonusTest = null!;
         if (BonusTxt.Text != null) bonusTest = BonusTxt.Text.ToCharArray();
         //AmountTxt.Text = charTest;
         if (charTest.Any(char.IsLetter) ||
@@ -118,11 +115,24 @@ public partial class MainWindow : Window
                 var splitInt = Convert.ToInt32(SplitTxt.Text);
                 var beginInt = Convert.ToInt32(StartChTxt.Text);
                 var amountInt = Convert.ToInt32(AmountTxt.Text);
+                var even = 0;
+                if (amountInt % 2 != 0) even = 1;
 
                 ChaptersMenu.IsVisible = false;
-                LoadBar.IsVisible = true;
-                Chapters.CreateChapter(bonusSel, splitInt, beginInt, amountInt, path, BonusTxt.Text, TlChBox.IsChecked,
-                    PrChBox.IsChecked);
+                LoadBar.IsVisible = true; //TODO: Does not actually show?
+                
+                //Unnecessary multithreading that's only noticeable when running older hardware or making a lot of folders
+                var thr1 = new Thread(()=>Chapters.CreateChapter(bonusSel, splitInt, beginInt,
+                    (amountInt / 2), _path, BonusTxt.Text!, TlChBox.IsChecked, PrChBox.IsChecked));
+                var thr2 = new Thread(()=>Chapters.CreateChapter(bonusSel, splitInt, beginInt + (amountInt / 2),
+                    (amountInt / 2) + even, _path, BonusTxt.Text!, TlChBox.IsChecked, PrChBox.IsChecked));
+
+                thr1.Start();
+                thr2.Start();
+
+                thr1.Join();
+                thr2.Join();
+                
                 LoadBar.IsVisible = false;
                 Done.IsVisible = true;
             }
@@ -136,11 +146,7 @@ public partial class MainWindow : Window
         Directory.IsVisible = true;
     }
 
-    private void Button_OnClick(object? sender, RoutedEventArgs e)
-    {
-    }
-
-    public void OnError()
+    private void OnError()
     {
         var ed = new ErrorDialog();
         ed.ShowDialog(this);
@@ -148,28 +154,24 @@ public partial class MainWindow : Window
 
     private void BonusButtonChecked(object? sender, RoutedEventArgs e)
     {
-        var rb = sender as RadioButton;
-
-        if (rb != null)
+        if (sender is not RadioButton rb) return;
+        var bonusSelection = rb.Tag?.ToString();
+        switch (bonusSelection)
         {
-            var bonusSelection = rb.Tag.ToString();
-            switch (bonusSelection)
-            {
-                case "BonusNone":
-                    BonusTxt.IsVisible = false;
-                    bonusSel = 0;
-                    break;
-                case "BonusSome":
-                    BonusTxt.Watermark = "Enter chapters that have bonus chapters (ex. \"2,5,5,6\")";
-                    BonusTxt.IsVisible = true;
-                    bonusSel = 1;
-                    break;
-                case "BonusAll":
-                    BonusTxt.Watermark = "Enter amount of bonus chapters per chapter (ex. \"1\")";
-                    BonusTxt.IsVisible = true;
-                    bonusSel = 2;
-                    break;
-            }
+            case "BonusNone":
+                BonusTxt.IsVisible = false;
+                bonusSel = 0;
+                break;
+            case "BonusSome":
+                BonusTxt.Watermark = "Enter chapters that have bonus chapters (ex. \"2,5,5,6\")";
+                BonusTxt.IsVisible = true;
+                bonusSel = 1;
+                break;
+            case "BonusAll":
+                BonusTxt.Watermark = "Enter amount of bonus chapters per chapter (ex. \"1\")";
+                BonusTxt.IsVisible = true;
+                bonusSel = 2;
+                break;
         }
     }
 
@@ -183,7 +185,7 @@ public partial class MainWindow : Window
     {
         Folder.IsVisible = false;
         LoadBar.IsVisible = true;
-        Folders.CreateFolders(path, TlBox.IsChecked, PrBox.IsChecked, RawsBox.IsChecked, ClrdBox.IsChecked,
+        Folders.CreateFolders(_path, TlBox.IsChecked, PrBox.IsChecked, RawsBox.IsChecked, ClrdBox.IsChecked,
             TsBox.IsChecked, QcBox.IsChecked);
         LoadBar.IsVisible = false;
         Done.IsVisible = true;
@@ -192,11 +194,9 @@ public partial class MainWindow : Window
     private async void UpdateBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         var update = await UpdateCheck.CheckGitHubNewerVersion();
-        if (update == 1)
-        {
-            var up = new UpdateDialog();
-            await up.ShowDialog(this);
-        }
+        if (update != 1) return;
+        var up = new UpdateDialog();
+        await up.ShowDialog(this);
     }
 
     private void SettingsBtn_OnClick(object? sender, RoutedEventArgs e)

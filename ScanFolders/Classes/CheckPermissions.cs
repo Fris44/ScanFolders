@@ -9,16 +9,13 @@ public static class CheckPermissions
     {
         try
         {
-            using (var fs = File.Create(
-                       Path.Combine(
-                           dirPath,
-                           Path.GetRandomFileName()
-                       ),
-                       1,
-                       FileOptions.DeleteOnClose)
-                  )
-            {
-            }
+            using var fs = File.Create(
+                Path.Combine(
+                    dirPath,
+                    Path.GetRandomFileName()
+                ),
+                1,
+                FileOptions.DeleteOnClose);
 
             return true;
         }
