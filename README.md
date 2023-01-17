@@ -7,7 +7,7 @@ A crudely made program for creating folders for scanlation.
 2. Allows users to create folders for specific scanlation roles per chapter.
 
 ## Requirements
-The Windows version of this program requires the .NET 6.0 Desktop Runtime.
+The Windows version of this program requires the [.NET 6.0 Runtime.](https://dotnet.microsoft.com/en-us/download)
 *MacOS and Linux do not require anything, as they are built as self-contained packages (hence larger filesize)*
 
 ## Known issues
