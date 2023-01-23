@@ -7,8 +7,12 @@ A crudely made program for creating folders for scanlation.
 2. Allows users to create folders for specific scanlation roles per chapter.
 
 ## Requirements
-The Windows version of this program requires the [.NET 6.0 Runtime.](https://dotnet.microsoft.com/en-us/download)
-*MacOS and Linux do not require anything, as they are built as self-contained packages (hence larger filesize)*
+The Windows version of this program requires the [.NET 7.0 Runtime.](https://dotnet.microsoft.com/en-us/download)
+*Linux does not require anything, as it is built as a self-contained package (hence larger filesize)*
+
+## Mac support
+I don't have a Mac to test on, so if you can build and test releases, open an issue or send me a message on [Twitter](https://twitter.com/TheFrisianGamer)
+[Here's extra info about publishing as an application bundle](https://docs.avaloniaui.net/docs/distribution-publishing/macos)
 
 ## Known issues
 Open an issue if you find anything
