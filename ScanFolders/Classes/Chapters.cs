@@ -1,4 +1,6 @@
-﻿using System;
+﻿//TODO edge case: Bonus chapters for chapters with split > 10 need to go to .50
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

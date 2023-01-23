@@ -1,17 +1,19 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+﻿<!-- ReSharper disable Xaml.StyleClassNotFound -->
+
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.Views.ErrorDialog"
-        Title="ErrorDialog" Width="200" Height="150" MinHeight="200" MinWidth="150"
+        Title="ErrorDialog" Height="200" Width="150" MinHeight="200" MinWidth="150" MaxWidth="640"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <!--<Label x:Name="ErrorLbl" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{Binding Error}"/>-->
         <TextBlock x:Name="ErrorTxt" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"
                    VerticalAlignment="Top" Margin="0, 30" Text="{Binding Error}" />
         <Button x:Name="CloseBtn" Click="CloseBtn_OnClick" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                Margin="10">
+                Margin="10" Classes="Dark">
             Close
         </Button>
     </Grid>

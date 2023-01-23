@@ -1,10 +1,13 @@
 //TODO: Comment stuff you
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using Avalonia.LogicalTree;
 using ScanFolders.Classes;
 using ScanFolders.Viewmodels;
 using ScanFolders.Views;
@@ -19,6 +22,8 @@ public partial class MainWindow : Window
     private static string _path = null!;
     private int bonusSel;
     private int selection;
+    private double screenHeight;
+    private double screenWidth;
 
     public MainWindow()
     {
@@ -26,6 +31,58 @@ public partial class MainWindow : Window
 
         var vm = new MainWindowViewModel();
         DataContext = vm;
+        
+        MenuButtonSize();
+        GetSize();
+        //SetWindowSize();
+        
+    }
+    
+    /// <summary>
+    /// Scale main buttons to the largest button
+    /// </summary>
+    private void MenuButtonSize()
+    {
+        //Get button sizes
+        //TODO: This gives zero, fix
+        ChBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        ScanBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        SettingsBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        ExitBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+
+        ChBtn.DesiredSize.Deconstruct(out var chBtnWidth, out var chBtnHeight);
+        ScanBtn.DesiredSize.Deconstruct(out var scanBtnWidth, out var scanBtnHeight);
+        SettingsBtn.DesiredSize.Deconstruct(out var settingsBtnWidth, out var settingsBtnHeight);
+        ExitBtn.DesiredSize.Deconstruct(out var exitBtnWidth, out var exitBtnHeight);
+
+        double[] findWidth =
+        {
+            chBtnWidth,
+            scanBtnWidth,
+            settingsBtnWidth,
+            exitBtnWidth,
+        };
+
+        double[] findHeight =
+        {
+            chBtnHeight,
+            scanBtnHeight,
+            settingsBtnHeight,
+            exitBtnHeight,
+        };
+
+        var highestWidth = findWidth.Max();
+        var highestHeight = findHeight.Max();
+
+        foreach (var VARIABLE in findWidth)
+        {
+            Console.WriteLine(VARIABLE);
+        }
+        Console.WriteLine(highestWidth + "\n");
+        
+        
+        ChBtn.Width = ScanBtn.Width = SettingsBtn.Width = ExitBtn.Width = highestWidth;
+        ChBtn.Height = ScanBtn.Height = SettingsBtn.Height = ExitBtn.Height = highestHeight;
     }
 
     private void ChBtn_OnClick(object? sender, RoutedEventArgs e)
@@ -146,6 +203,9 @@ public partial class MainWindow : Window
         Directory.IsVisible = true;
     }
 
+    /// <summary>
+    /// Show error dialog
+    /// </summary>
     private void OnError()
     {
         var ed = new ErrorDialog();
@@ -219,4 +279,22 @@ public partial class MainWindow : Window
         OnError();
         SettingsFile.GetSettings();
     }
+    
+    /// <summary>
+    /// Get size of the screen
+    /// </summary>
+    private void GetSize()
+    {
+        var window = this.GetSelfAndLogicalAncestors().OfType<Window>().First();
+        var screen = window.Screens.ScreenFromPoint(Position);
+
+        screenHeight = screen!.Bounds.Size.Height;
+        screenWidth = screen.Bounds.Size.Width;
+    }
+
+    // private void SetWindowSize()
+    // {
+    //     Window.Width = screenWidth / 2;
+    //     Window.Height = screenHeight / 2;
+    // }
 }

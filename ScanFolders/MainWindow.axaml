@@ -1,4 +1,5 @@
 <!--TODO: Learn how to use views instead of dumping everything in one window!-->
+<!-- ReSharper disable Xaml.StyleClassNotFound -->
 
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,30 +7,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.MainWindow"
+        x:Name="Window"
         Title="ScanFolders" WindowStartupLocation="CenterScreen">
     <Grid>
         <!--StackPanel for Menu-->
         <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                     IsVisible="True">
 
-            <!--<Button Click="Button_OnClick">Test</Button>-->
-
             <!--Button for selection 1 (make folders for x amount of chapters)-->
-            <Button x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5"
+            <Button Classes="Dark" x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5"
                     Content="Create chapter folders" HorizontalContentAlignment="Center" Margin="5"
-                    ToolTip.Tip="Create folder for x amount of chapters" />
+                    ToolTip.Tip="Create folder for x amount of chapters"
+                    VerticalContentAlignment="Center"/>
 
             <!--Button for selection 2 (make scan-related folder)-->
-            <Button x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5"
+            <Button Classes="Dark" x:Name="ScanBtn" MinWidth="200" Click="ScanBtn_OnClick" Padding="15, 5"
                     Content="Create scan-related folders" HorizontalContentAlignment="Center" Margin="5"
-                    ToolTip.Tip="Create folders for scan-related roles&#13;Like Raws, TS, TL" />
+                    ToolTip.Tip="Create folders for scan-related roles&#13;Like Raws, TS, TL"
+                    VerticalContentAlignment="Center"/>
 
-            <Button x:Name="SettingsBtn" MinWidth="200" Click="SettingsBtn_OnClick" Padding="15,5" Content="Settings"
-                    HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Open settings menu" />
+            <Button Classes="Dark" x:Name="SettingsBtn" MinWidth="200" Click="SettingsBtn_OnClick" Padding="15,5" Content="Settings"
+                    HorizontalContentAlignment="Center" Margin="5" ToolTip.Tip="Open settings menu"
+                    VerticalContentAlignment="Center"/>
 
             <!--Exit button-->
-            <Button x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit"
-                    HorizontalContentAlignment="Center" Margin="5" />
+            <Button Classes="Dark" x:Name="ExitBtn" MinWidth="200" Click="ExitBtn_OnClick" Padding="15, 5" Content="Exit"
+                    HorizontalContentAlignment="Center" Margin="5" VerticalContentAlignment="Center"/>
+            
         </StackPanel>
         <Grid x:Name="Directory" IsVisible="False">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -37,13 +41,13 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <TextBox x:Name="DirText" TextWrapping="NoWrap" IsEnabled="False" MinWidth="300"
                              Watermark="Directory path" Margin="5" Padding="15, 5" AcceptsReturn="False" />
-                    <Button x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder" />
+                    <Button Classes="Dark" x:Name="DirBtn" Click="DirBtn_OnClick" Margin="5" Padding="15, 5" Content="Open Folder" />
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="NxtDir" Content="Next" IsEnabled="False" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="NxtDir" Content="Next" IsEnabled="False" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25"
                     Click="NxtDir_OnClick" />
-            <Button x:Name="BckDir" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="BckDir" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"
                     Click="BckDir_OnClick" />
         </Grid>
@@ -81,10 +85,10 @@
                     <TextBlock>Add Proofread folder to root folder</TextBlock>
                 </CheckBox>
             </StackPanel>
-            <Button x:Name="NxtCh" Content="Next" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="NxtCh" Content="Next" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25"
                     Click="NxtCh_OnClick" />
-            <Button x:Name="BckCh" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="BckCh" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"
                     Click="Bck_OnClick" />
         </Grid>
@@ -94,10 +98,10 @@
         <Grid x:Name="Done" IsVisible="False">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
                 <TextBlock FontSize="30" Margin="5" Padding="15, 5" FontWeight="Bold" HorizontalAlignment="Center">Done</TextBlock>
-                <Button x:Name="MenuDir" Margin="5" Content="Return the main menu" MinWidth="200"
+                <Button Classes="Dark" x:Name="MenuDir" Margin="5" Content="Return the main menu" MinWidth="200"
                         HorizontalAlignment="Center" HorizontalContentAlignment="Center" Padding="15,5"
                         Click="MenuDir_OnClick" />
-                <Button x:Name="ExitDir" Margin="5" Content="Exit" MinWidth="200" HorizontalAlignment="Center"
+                <Button Classes="Dark" x:Name="ExitDir" Margin="5" Content="Exit" MinWidth="200" HorizontalAlignment="Center"
                         HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick" />
             </StackPanel>
         </Grid>
@@ -125,10 +129,10 @@
                     </CheckBox>
                 </StackPanel>
             </StackPanel>
-            <Button x:Name="NxtFolder" Content="Next" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="NxtFolder" Content="Next" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15, 5" Margin="25, 25"
                     Click="NxtFolder_OnClick" />
-            <Button x:Name="BckFolder" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="BckFolder" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"
                     Click="Bck_OnClick" />
         </Grid>
@@ -138,7 +142,7 @@
                 <TextBlock HorizontalAlignment="Center" Margin="5" Padding="15, 5">Change the prefix for chapter folders here</TextBlock>
                 <TextBox x:Name="PrefixTxt" MinWidth="200" MaxWidth="625" Margin="5" Padding="15, 5"
                          TextWrapping="NoWrap" Watermark="Chapter folder prefix" Text="{Binding Prefix}"
-                         ToolTip.Tip="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)" />
+                         ToolTip.Tip="Chapter folder prefix (ex. &quot;ch&quot; results in &quot;ch1&quot;, &quot;Chapter &quot; results in &quot;Chapter 1&quot;)"/>
                 <TextBlock HorizontalAlignment="Center" Margin="5" Padding="15, 5">Change folder names here (Scan folders only)</TextBlock>
                 <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                             Orientation="Horizontal">
@@ -165,14 +169,14 @@
                              Padding="15, 5" AcceptsReturn="False" Text="{Binding Proofread}" />
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center">Other</TextBlock>
-                <Button x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5"
+                <Button Classes="Dark" x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5"
                         Content="Check for updates" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
                         Margin="5" ToolTip.Tip="Check for updates" />
             </StackPanel>
-            <Button x:Name="BckSettings" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="BckSettings" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"
                     Click="BckSttngs_OnClick" />
-            <Button x:Name="SaveSettings" Content="Save" MinWidth="50" HorizontalContentAlignment="Center"
+            <Button Classes="Dark" x:Name="SaveSettings" Content="Save" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"
                     Click="SaveSttngs_OnClick" />
         </Grid>

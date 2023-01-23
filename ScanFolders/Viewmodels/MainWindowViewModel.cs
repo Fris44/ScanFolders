@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using Avalonia;
+using Avalonia.Controls;
 using ScanFolders.Classes;
 
 namespace ScanFolders.Viewmodels;
@@ -112,5 +114,5 @@ public class MainWindowViewModel : INotifyPropertyChanged
     }
 
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 }
