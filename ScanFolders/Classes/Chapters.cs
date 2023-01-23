@@ -11,6 +11,17 @@ public static class Chapters
 {
     private static List<string> _bonusList = new();
 
+    /// <summary>
+    /// Function for creating non-bonus chapters, calls <c>BonusChapter</c>
+    /// </summary>
+    /// <param name="bonusSel">Bonus Selection</param>
+    /// <param name="split">In how many parts chapters are split</param>
+    /// <param name="begin">Chapter number to start counting from</param>
+    /// <param name="amount">Amount of chapters</param>
+    /// <param name="path">Directory to create the folders in</param>
+    /// <param name="bonusCh">What chapters have bonus chapters OR how many bonus chapters per chapter</param>
+    /// <param name="tl">If a translation folder should be created</param>
+    /// <param name="pr">If a proofread folder should be created</param>
     public static void CreateChapter(int bonusSel, int split, int begin, int amount, string path, string bonusCh,
         bool? tl, bool? pr)
     {

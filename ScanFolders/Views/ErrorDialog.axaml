@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.Views.ErrorDialog"
-        Title="ErrorDialog" Height="200" Width="150" MinHeight="200" MinWidth="150" MaxWidth="640"
+        Title="ErrorDialog" Height="200" Width="350" MinHeight="200" MinWidth="350" MaxWidth="640"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <!--<Label x:Name="ErrorLbl" HorizontalAlignment="Center" VerticalAlignment="Center"  Content="{Binding Error}"/>-->

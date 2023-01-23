@@ -13,6 +13,10 @@
         <!--StackPanel for Menu-->
         <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                     IsVisible="True">
+            <TextBlock FontSize="32" FontWeight="Bold" VerticalAlignment="Top" Margin="15, 0" HorizontalAlignment="Center"
+                       Text="ScanFolders"></TextBlock>
+            <TextBlock FontSize="11" Margin="15, 0 , 15, 15" Text="v1.1.0" VerticalAlignment="Top"
+                       HorizontalAlignment="Right"></TextBlock>
 
             <!--Button for selection 1 (make folders for x amount of chapters)-->
             <Button Classes="Dark" x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5"
@@ -52,7 +56,7 @@
                     Click="BckDir_OnClick" />
         </Grid>
         <Grid x:Name="ChaptersMenu" IsVisible="False">
-            <StackPanel Margin="5,10" HorizontalAlignment="Left">
+            <StackPanel Margin="5,10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox x:Name="AmountTxt" Margin="0,5" Padding="15, 5" MaxWidth="500"
                          Watermark="Amount of chapters (ex. &quot;10&quot;)"
                          ToolTip.Tip="Amount of chapters (ex. &quot;10&quot;)" />
@@ -105,8 +109,10 @@
                         HorizontalContentAlignment="Center" Padding="15,5" Click="ExitBtn_OnClick" />
             </StackPanel>
         </Grid>
+        <!-- Kinda small -->
+        <!-- TODO: Better sizing -->
         <Grid x:Name="Folder" IsVisible="False"> <!--Add "Enable All" Button-->
-            <StackPanel Margin="10">
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Label FontWeight="Bold">What folders per chapter folder</Label>
                 <StackPanel Margin="10,0">
                     <CheckBox Name="TlBox">
@@ -171,7 +177,7 @@
                 <TextBlock HorizontalAlignment="Center">Other</TextBlock>
                 <Button Classes="Dark" x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5"
                         Content="Check for updates" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
-                        Margin="5" ToolTip.Tip="Check for updates" />
+                        Margin="5" ToolTip.Tip="Checks for updates, does nothing if you're on the newest version" />
             </StackPanel>
             <Button Classes="Dark" x:Name="BckSettings" Content="Back" MinWidth="50" HorizontalContentAlignment="Center"
                     HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="15,5" Margin="25,25"

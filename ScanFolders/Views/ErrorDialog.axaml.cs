@@ -13,15 +13,13 @@ namespace ScanFolders.Views;
 
 public partial class ErrorDialog : Window
 {
-    private readonly ErrorDialogViewModel vm;
-
     public ErrorDialog()
     {
         InitializeComponent();
 #if DEBUG
         this.AttachDevTools();
 #endif
-        vm = new ErrorDialogViewModel();
+        var vm = new ErrorDialogViewModel();
         DataContext = vm;
     }
 

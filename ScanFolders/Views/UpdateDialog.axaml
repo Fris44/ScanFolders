@@ -5,17 +5,17 @@
         xmlns:controls="clr-namespace:FluentAvalonia.UI.Controls;assembly=FluentAvalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ScanFolders.Views.UpdateDialog"
-        Title="UpdateDialog" Width="200" Height="150" MinHeight="200" MinWidth="150"
+        Title="UpdateDialog" Width="200" Height="350" MinHeight="200" MinWidth="350"
         WindowStartupLocation="CenterOwner">
     <Grid>
         <TextBlock x:Name="UpdateTxt" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Center"
-                   VerticalAlignment="Top" Margin="0, 30" Text="There's an update available" />
-        <Button HorizontalAlignment="Center" VerticalAlignment="Center">
-            <controls:HyperlinkButton Content="Download"
-                                      NavigateUri="https://github.com/TheFrisianGamer/ScanFolders/releases/latest" />
-        </Button>
-        <Button x:Name="CloseBtn" Click="CloseBtn_OnClick" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                Margin="10">
+                   VerticalAlignment="Top" Margin="0, 30" Text="There's an update available"/>
+            <Button HorizontalAlignment="Center" VerticalAlignment="Center">
+                <controls:HyperlinkButton Content="Download"
+                                          NavigateUri="https://github.com/TheFrisianGamer/ScanFolders/releases/latest"/>
+            </Button>
+            <Button x:Name="CloseBtn" Click="CloseBtn_OnClick" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                    Margin="10">
             Close
         </Button>
     </Grid>

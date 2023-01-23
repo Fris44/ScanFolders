@@ -1,7 +1,6 @@
 //TODO: Comment stuff you
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Avalonia;
@@ -34,7 +33,7 @@ public partial class MainWindow : Window
         
         MenuButtonSize();
         GetSize();
-        //SetWindowSize();
+        SetWindowSize();
         
     }
     
@@ -44,7 +43,6 @@ public partial class MainWindow : Window
     private void MenuButtonSize()
     {
         //Get button sizes
-        //TODO: This gives zero, fix
         ChBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
         ScanBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
         SettingsBtn.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
@@ -74,13 +72,6 @@ public partial class MainWindow : Window
         var highestWidth = findWidth.Max();
         var highestHeight = findHeight.Max();
 
-        foreach (var VARIABLE in findWidth)
-        {
-            Console.WriteLine(VARIABLE);
-        }
-        Console.WriteLine(highestWidth + "\n");
-        
-        
         ChBtn.Width = ScanBtn.Width = SettingsBtn.Width = ExitBtn.Width = highestWidth;
         ChBtn.Height = ScanBtn.Height = SettingsBtn.Height = ExitBtn.Height = highestHeight;
     }
@@ -151,7 +142,6 @@ public partial class MainWindow : Window
         var charTest = charTestS.ToCharArray();
         char[] bonusTest = null!;
         if (BonusTxt.Text != null) bonusTest = BonusTxt.Text.ToCharArray();
-        //AmountTxt.Text = charTest;
         if (charTest.Any(char.IsLetter) ||
             charTest.Any(char.IsSymbol) || //Check if any of the textboxes have letters or symbols
             (charTest.Any(char.IsPunctuation) && bonusTest.Any(x => char.IsPunctuation(x) && x != ',')))
@@ -292,9 +282,9 @@ public partial class MainWindow : Window
         screenWidth = screen.Bounds.Size.Width;
     }
 
-    // private void SetWindowSize()
-    // {
-    //     Window.Width = screenWidth / 2;
-    //     Window.Height = screenHeight / 2;
-    // }
+    private void SetWindowSize()
+    {
+        Window.Width = screenWidth / 2;
+        Window.Height = screenHeight / 2;
+    }
 }
