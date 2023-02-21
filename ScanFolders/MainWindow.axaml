@@ -15,7 +15,7 @@
                     IsVisible="True">
             <TextBlock FontSize="32" FontWeight="Bold" VerticalAlignment="Top" Margin="15, 0" HorizontalAlignment="Center"
                        Text="ScanFolders" />
-            <TextBlock FontSize="11" Margin="15, 0 , 15, 15" Text="v1.1.0" VerticalAlignment="Top"
+            <TextBlock FontSize="11" Margin="15, 0 , 15, 15" Text="v1.1.1" VerticalAlignment="Top"
                        HorizontalAlignment="Right" />
 
             <!--Button for selection 1 (make folders for x amount of chapters)-->
