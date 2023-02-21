@@ -7,8 +7,8 @@ A crudely made program for creating folders for scanlation.
 2. Allows users to create folders for specific scanlation roles per chapter.
 
 ## Requirements
-The Windows version of this program requires the [.NET 7.0 Runtime.](https://dotnet.microsoft.com/en-us/download)
-*Linux does not require anything, as it is built as a self-contained package (hence larger filesize)*
+This program requires the [.NET 7.0 Runtime.](https://dotnet.microsoft.com/en-us/download)  
+For Linux you can [use your package manager](https://learn.microsoft.com/en-us/dotnet/core/install/linux) to download the runtime.
 
 ## Mac support
 I don't have a Mac to test on, so if you can build and test releases, open an issue or send me a message on [Twitter](https://twitter.com/TheFrisianGamer)
