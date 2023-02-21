@@ -14,9 +14,9 @@
         <StackPanel x:Name="Menu" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                     IsVisible="True">
             <TextBlock FontSize="32" FontWeight="Bold" VerticalAlignment="Top" Margin="15, 0" HorizontalAlignment="Center"
-                       Text="ScanFolders"></TextBlock>
+                       Text="ScanFolders" />
             <TextBlock FontSize="11" Margin="15, 0 , 15, 15" Text="v1.1.0" VerticalAlignment="Top"
-                       HorizontalAlignment="Right"></TextBlock>
+                       HorizontalAlignment="Right" />
 
             <!--Button for selection 1 (make folders for x amount of chapters)-->
             <Button Classes="Dark" x:Name="ChBtn" MinWidth="200" Click="ChBtn_OnClick" Padding="15, 5"
@@ -175,6 +175,9 @@
                              Padding="15, 5" AcceptsReturn="False" Text="{Binding Proofread}" />
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center">Other</TextBlock>
+                <CheckBox Name="UpdateBox">
+                    <TextBlock>Check for updates on startup</TextBlock>
+                </CheckBox>
                 <Button Classes="Dark" x:Name="UpdateBtn" MinWidth="200" Click="UpdateBtn_OnClick" Padding="15,5"
                         Content="Check for updates" HorizontalContentAlignment="Center" HorizontalAlignment="Center"
                         Margin="5" ToolTip.Tip="Checks for updates, does nothing if you're on the newest version" />

@@ -6,7 +6,6 @@ using System.Threading;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.LogicalTree;
 using ScanFolders.Classes;
 using ScanFolders.Viewmodels;
 using ScanFolders.Views;
@@ -21,8 +20,6 @@ public partial class MainWindow : Window
     private static string _path = null!;
     private int bonusSel;
     private int selection;
-    private double screenHeight;
-    private double screenWidth;
 
     public MainWindow()
     {
@@ -30,13 +27,11 @@ public partial class MainWindow : Window
 
         var vm = new MainWindowViewModel();
         DataContext = vm;
-        
+
         MenuButtonSize();
-        GetSize();
-        SetWindowSize();
-        
+        UpdateChecker();
     }
-    
+
     /// <summary>
     /// Scale main buttons to the largest button
     /// </summary>
@@ -58,7 +53,7 @@ public partial class MainWindow : Window
             chBtnWidth,
             scanBtnWidth,
             settingsBtnWidth,
-            exitBtnWidth,
+            exitBtnWidth
         };
 
         double[] findHeight =
@@ -66,7 +61,7 @@ public partial class MainWindow : Window
             chBtnHeight,
             scanBtnHeight,
             settingsBtnHeight,
-            exitBtnHeight,
+            exitBtnHeight
         };
 
         var highestWidth = findWidth.Max();
@@ -142,6 +137,7 @@ public partial class MainWindow : Window
         var charTest = charTestS.ToCharArray();
         char[] bonusTest = null!;
         if (BonusTxt.Text != null) bonusTest = BonusTxt.Text.ToCharArray();
+        //AmountTxt.Text = charTest;
         if (charTest.Any(char.IsLetter) ||
             charTest.Any(char.IsSymbol) || //Check if any of the textboxes have letters or symbols
             (charTest.Any(char.IsPunctuation) && bonusTest.Any(x => char.IsPunctuation(x) && x != ',')))
@@ -162,24 +158,27 @@ public partial class MainWindow : Window
                 var splitInt = Convert.ToInt32(SplitTxt.Text);
                 var beginInt = Convert.ToInt32(StartChTxt.Text);
                 var amountInt = Convert.ToInt32(AmountTxt.Text);
-                var even = 0;
-                if (amountInt % 2 != 0) even = 1;
+
+                int Even()
+                {
+                    return amountInt % 2 != 0 ? 1 : 0;
+                }
 
                 ChaptersMenu.IsVisible = false;
                 LoadBar.IsVisible = true; //TODO: Does not actually show?
-                
+
                 //Unnecessary multithreading that's only noticeable when running older hardware or making a lot of folders
-                var thr1 = new Thread(()=>Chapters.CreateChapter(bonusSel, splitInt, beginInt,
+                var thr1 = new Thread(() => Chapters.CreateChapter(bonusSel, splitInt, beginInt,
                     (amountInt / 2), _path, BonusTxt.Text!, TlChBox.IsChecked, PrChBox.IsChecked));
-                var thr2 = new Thread(()=>Chapters.CreateChapter(bonusSel, splitInt, beginInt + (amountInt / 2),
-                    (amountInt / 2) + even, _path, BonusTxt.Text!, TlChBox.IsChecked, PrChBox.IsChecked));
+                var thr2 = new Thread(() => Chapters.CreateChapter(bonusSel, splitInt, beginInt + (amountInt / 2),
+                    amountInt / 2 + Even(), _path, BonusTxt.Text!, TlChBox.IsChecked, PrChBox.IsChecked));
 
                 thr1.Start();
                 thr2.Start();
 
                 thr1.Join();
                 thr2.Join();
-                
+
                 LoadBar.IsVisible = false;
                 Done.IsVisible = true;
             }
@@ -251,6 +250,7 @@ public partial class MainWindow : Window
 
     private void SettingsBtn_OnClick(object? sender, RoutedEventArgs e)
     {
+        UpdateBox.IsChecked = SettingsFile.StartupCheck;
         Menu.IsVisible = false;
         Settings.IsVisible = true;
     }
@@ -264,27 +264,17 @@ public partial class MainWindow : Window
     private void SaveSttngs_OnClick(object? sender, RoutedEventArgs e)
     {
         var result = SettingsFile.UpdateSettings(SettingsTlBox.Text, SettingsPrBox.Text, SettingsRawsBox.Text,
-            SettingsClRdBox.Text, SettingsTsBox.Text, SettingsQcBox.Text, PrefixTxt.Text);
+            SettingsClRdBox.Text, SettingsTsBox.Text, SettingsQcBox.Text, PrefixTxt.Text, UpdateBox.IsChecked);
         ErrorMessages.ToErrorMessage(result);
         OnError();
         SettingsFile.GetSettings();
     }
-    
-    /// <summary>
-    /// Get size of the screen
-    /// </summary>
-    private void GetSize()
-    {
-        var window = this.GetSelfAndLogicalAncestors().OfType<Window>().First();
-        var screen = window.Screens.ScreenFromPoint(Position);
 
-        screenHeight = screen!.Bounds.Size.Height;
-        screenWidth = screen.Bounds.Size.Width;
-    }
-
-    private void SetWindowSize()
+    private async void UpdateChecker()
     {
-        Window.Width = screenWidth / 2;
-        Window.Height = screenHeight / 2;
+        var update = await UpdateCheck.CheckGitHubNewerVersion();
+        if (update != 1) return;
+        var up = new UpdateDialog();
+        await up.ShowDialog(this);
     }
 }

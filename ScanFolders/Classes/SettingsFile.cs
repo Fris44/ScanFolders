@@ -5,23 +5,7 @@ using Tommy;
 namespace ScanFolders.Classes;
 
 public static class SettingsFile
-{ 
-    /*
-     * It is safe to suppress a warning from this rule if you are developing an application
-     * and therefore have full control over access to the type that contains the static field.
-     * https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2211#when-to-suppress-warnings
-     */
-#pragma warning disable CA2211
-    public static string TranslationFolder = "08-Translation";
-    public static string ProofreadFolder = "09-Proofread";
-    public static string RawsFolder = "01-Raws";
-    public static string ClRdFolder = "02-CLRD";
-    public static string TsFolder = "03-TS";
-    public static string QcFolder = "04-QC";
-    public static string ChapterFolder = "Chapter ";
-    private static readonly char[] IllegalChar = "<>:\"/\\|?*".ToCharArray();
-#pragma warning restore CA2211
-    
+{
     public static void GetSettings()
     {
         if (!File.Exists("config.toml")) CreateFile();
@@ -36,20 +20,22 @@ public static class SettingsFile
         TsFolder = table["folders"]["TS"];
         QcFolder = table["folders"]["QC"];
         ChapterFolder = table["chapters"]["Prefix"];
+        if (!table["update"]["Startup"].HasValue)
+            UpdateSettings(TranslationFolder, ProofreadFolder, RawsFolder, ClRdFolder, TsFolder, QcFolder,
+                ChapterFolder, StartupCheck);
+        else
+            StartupCheck = table["update"]["Startup"];
     }
 
     public static int UpdateSettings(string tl, string pr, string raws, string clrd, string ts, string qc,
-        string prefix)
+        string prefix, bool? startup)
     {
         if (tl == "" || pr == "" || raws == "" || clrd == "" || ts == "" || qc == "" || prefix == "")
             return 745;
 
-        if (tl.IndexOfAny(IllegalChar) >= 0 || pr.IndexOfAny(IllegalChar) >= 0 ||
-            raws.IndexOfAny(IllegalChar) >= 0 ||
-            clrd.IndexOfAny(IllegalChar) >= 0 || ts.IndexOfAny(IllegalChar) >= 0 ||
-            qc.IndexOfAny(IllegalChar) >= 0 ||
-            prefix.IndexOfAny(IllegalChar) >= 0)
+        if ((tl + pr + raws + clrd + ts + qc + prefix).IndexOfAny(IllegalChar) >= 0)
             return 746;
+
         try
         {
             var toml = new TomlTable //TODO: Find way to edit instead of remaking
@@ -69,6 +55,11 @@ public static class SettingsFile
                 ["chapters"] =
                 {
                     ["Prefix"] = prefix
+                },
+
+                ["update"] =
+                {
+                    ["Startup"] = startup
                 }
             };
             using (var writer = new StreamWriter("config.toml"))
@@ -112,6 +103,11 @@ public static class SettingsFile
             ["chapters"] =
             {
                 ["Prefix"] = "Chapter "
+            },
+
+            ["update"] =
+            {
+                ["Startup"] = true
             }
         };
 
@@ -126,4 +122,21 @@ public static class SettingsFile
             ErrorMessages.ToErrorMessage(e is UnauthorizedAccessException ? 102 : 1);
         }
     }
+    /*
+     * It is safe to suppress a warning from this rule if you are developing an application
+     * and therefore have full control over access to the type that contains the static field.
+     * https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca2211#when-to-suppress-warnings
+     */
+    // This might still be incorrect practice but I honestly can't be bothered to change it
+#pragma warning disable CA2211
+    public static string TranslationFolder = "08-Translation";
+    public static string ProofreadFolder = "09-Proofread";
+    public static string RawsFolder = "01-Raws";
+    public static string ClRdFolder = "02-CLRD";
+    public static string TsFolder = "03-TS";
+    public static string QcFolder = "04-QC";
+    public static string ChapterFolder = "Chapter ";
+    public static bool StartupCheck = true;
+    private static readonly char[] IllegalChar = "<>:\"/\\|?*".ToCharArray();
+#pragma warning restore CA2211
 }

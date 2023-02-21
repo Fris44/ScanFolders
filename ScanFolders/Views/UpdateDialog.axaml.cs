@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using System.Diagnostics;
+using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
@@ -22,5 +23,11 @@ public partial class UpdateDialog : Window
     private void CloseBtn_OnClick(object? sender, RoutedEventArgs e)
     {
         Close();
+    }
+
+    private void DownloadBtn_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo
+            { FileName = "https://github.com/TheFrisianGamer/ScanFolders/releases/latest", UseShellExecute = true });
     }
 }

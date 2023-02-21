@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel;
-using Avalonia;
-using Avalonia.Controls;
 using ScanFolders.Classes;
 
 namespace ScanFolders.Viewmodels;
@@ -20,12 +18,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => translation;
         set
         {
-            if (translation != value)
-            {
-                translation = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Translation)));
-            }
+            if (translation == value) return;
+            translation = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Translation)));
         }
     }
 
@@ -34,12 +30,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => proofread;
         set
         {
-            if (proofread != value)
-            {
-                proofread = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Proofread)));
-            }
+            if (proofread == value) return;
+            proofread = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Proofread)));
         }
     }
 
@@ -48,12 +42,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => raws;
         set
         {
-            if (raws != value)
-            {
-                raws = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Raws)));
-            }
+            if (raws == value) return;
+            raws = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Raws)));
         }
     }
 
@@ -62,12 +54,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => clrd;
         set
         {
-            if (clrd != value)
-            {
-                clrd = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(ClRd)));
-            }
+            if (clrd == value) return;
+            clrd = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(ClRd)));
         }
     }
 
@@ -76,12 +66,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => ts;
         set
         {
-            if (ts != value)
-            {
-                ts = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Ts)));
-            }
+            if (ts == value) return;
+            ts = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Ts)));
         }
     }
 
@@ -90,12 +78,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => qc;
         set
         {
-            if (qc != value)
-            {
-                qc = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Qc)));
-            }
+            if (qc == value) return;
+            qc = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Qc)));
         }
     }
 
@@ -104,12 +90,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get => pre;
         set
         {
-            if (pre != value)
-            {
-                pre = value;
-                var handler = PropertyChanged;
-                if (handler != null) handler(this, new PropertyChangedEventArgs(nameof(Prefix)));
-            }
+            if (pre == value) return;
+            pre = value;
+            var handler = PropertyChanged;
+            handler?.Invoke(this, new PropertyChangedEventArgs(nameof(Prefix)));
         }
     }
 
