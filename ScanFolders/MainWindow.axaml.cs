@@ -99,7 +99,7 @@ public partial class MainWindow : Window
         if (result == null) return;
         _path = result;
         DirText.Text = _path;
-        if (CheckPermissions.IsDirectoryWritable(_path))
+        if (FrisExtras.Permissions.Permissions.IsDirectoryWritable(_path))
         {
             NxtDir.IsEnabled = true;
         }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using FrisExtras.Misc;
 using Tommy;
 
 namespace ScanFolders.Classes;
@@ -30,10 +32,21 @@ public static class SettingsFile
     public static int UpdateSettings(string tl, string pr, string raws, string clrd, string ts, string qc,
         string prefix, bool? startup)
     {
-        if (tl == "" || pr == "" || raws == "" || clrd == "" || ts == "" || qc == "" || prefix == "")
+        var strList = new List<string>
+        {
+            tl,
+            pr,
+            raws,
+            clrd,
+            ts,
+            qc,
+            prefix
+        };
+
+        if (Misc.WhitespaceCheck(strList))
             return 745;
 
-        if ((tl + pr + raws + clrd + ts + qc + prefix).IndexOfAny(IllegalChar) >= 0)
+        if (Misc.IllegalCharCheck(strList))
             return 746;
 
         try
@@ -137,6 +150,5 @@ public static class SettingsFile
     public static string QcFolder = "04-QC";
     public static string ChapterFolder = "Chapter ";
     public static bool StartupCheck = true;
-    private static readonly char[] IllegalChar = "<>:\"/\\|?*".ToCharArray();
 #pragma warning restore CA2211
 }

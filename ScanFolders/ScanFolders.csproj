@@ -11,7 +11,10 @@
         <!--PublishSingleFile>true</PublishSingleFile-->
     </PropertyGroup>
     <ItemGroup>
-        <None Remove=".gitignore" />
+        <None Remove=".gitignore"/>
+        <None Update="Libs\FrisExtras.xml">
+            <DependentUpon>FrisExtras.dll</DependentUpon>
+        </None>
     </ItemGroup>
     <ItemGroup>
         <!--This helps with theme dll-s trimming.
@@ -22,19 +25,24 @@
         <TrimmableAssembly Include="Avalonia.Themes.Default" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="0.10.18" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
+        <PackageReference Include="Avalonia" Version="0.10.18"/>
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.18"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.14" />
-        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18" />
-        <PackageReference Include="FluentAvaloniaUI" Version="1.4.5" />
-        <PackageReference Include="Material.Avalonia" Version="2.5.1" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.14"/>
+        <PackageReference Include="Avalonia.ReactiveUI" Version="0.10.18"/>
+        <PackageReference Include="FluentAvaloniaUI" Version="1.4.5"/>
+        <PackageReference Include="Material.Avalonia" Version="2.5.1"/>
         <PackageReference Include="Octokit" Version="5.0.0"/>
-        <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
-        <PackageReference Include="Tommy" Version="3.1.2" />
+        <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0"/>
+        <PackageReference Include="Tommy" Version="3.1.2"/>
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.6.1"/>
     </ItemGroup>
     <ItemGroup>
-        <_DeploymentManifestIconFile Remove="Assets\Icon.ico" />
+        <_DeploymentManifestIconFile Remove="Assets\Icon.ico"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="FrisExtras">
+            <HintPath>Libs\FrisExtras.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>

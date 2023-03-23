@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FrisExtras</name>
+    </assembly>
+    <members>
+        <member name="T:FrisExtras.Misc.Misc">
+            <summary>
+                Collection of miscellaneous methods that don't fit anywhere else.
+            </summary>
+        </member>
+        <member name="M:FrisExtras.Misc.Misc.IsEven(System.Int32)">
+            <summary>
+                Checks if a number is even.
+            </summary>
+            <param name="number">The number to check.</param>
+            <returns>
+                <c>True</c>
+                if
+                <paramref name="number"/>
+                is even.
+                <c>False</c>
+                if
+                <paramref name="number"/>
+                is uneven.
+            </returns>
+        </member>
+        <member name="M:FrisExtras.Misc.Misc.IllegalCharCheck(System.String)">
+            <summary>
+                Checks if a string contains illegal filename characters.
+            </summary>
+            <param name="str">The string to check</param>
+            <returns>
+                <c>True</c>
+                if
+                <paramref name="str"/>
+                contains at least one illegal character.
+                Otherwise returns <c>False</c>.
+            </returns>
+        </member>
+        <member name="M:FrisExtras.Misc.Misc.IllegalCharCheck(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Checks if any of the strings in a list contain illegal filename characters.
+            </summary>
+            <param name="strList">The list of strings to check</param>
+            <returns>
+                <c>True</c>
+                if any of the strings in
+                <paramref name="strList"/>
+                contains at least on illegal character.
+                Otherwise returns <c>False</c>.
+            </returns>
+        </member>
+        <member name="M:FrisExtras.Misc.Misc.WhitespaceCheck(System.String)">
+            <summary>
+                Checks if a string is empty, null or only contains whitespaces.
+            </summary>
+            <param name="str">The string to check.</param>
+            <returns>
+                <c>True</c>
+                if the string is empty, null or only contains whitespaces.
+                Otherwise returns <c>False></c>.
+            </returns>
+        </member>
+        <member name="M:FrisExtras.Misc.Misc.WhitespaceCheck(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Checks if any of the strings in a list are empty, null or contain only whitespaces.
+            </summary>
+            <param name="strList">The list of strings to check.</param>
+            <returns>
+                <c>True</c>
+                if any of the strings are empty, null or contain only whitespaces.
+                Otherwise returns <c>False</c>.
+            </returns>
+        </member>
+        <member name="T:FrisExtras.Permissions.Permissions">
+            <summary>
+                Class containing methods to check if the program has certain permissions.
+            </summary>
+        </member>
+        <member name="M:FrisExtras.Permissions.Permissions.IsDirectoryWritable(System.String,System.Boolean)">
+            <summary>
+                Checks if the program has permission to write in the given directory.
+            </summary>
+            <param name="dirPath">Directory to check.</param>
+            <param name="throwIfFails">If the method should throw the error. Defaults to false.</param>
+            <returns>
+                <c>True</c>
+                if the directory is writeable. <c>False</c> if not.
+            </returns>
+        </member>
+        <member name="T:FrisExtras.Secrets.Secrets">
+            <summary>
+                Generate cryptographically strong pseudo-random numbers suitable for
+                managing secrets such as account authentication, tokens, and similar.
+                Based off of the Python library.
+            </summary>
+        </member>
+        <member name="M:FrisExtras.Secrets.Secrets.GenUrlSafeToken(System.Int32)">
+            <summary>
+                Generates a random URL-safe, Base64 encoded string.
+            </summary>
+            <param name="strength">Number of bytes to create. Default is 16.</param>
+            <returns>A random URL-safe Base64 encoded string.</returns>
+        </member>
+        <member name="M:FrisExtras.Secrets.Secrets.GenBase64Token(System.Int32)">
+            <summary>
+                Generates a Base64 encoded string.
+            </summary>
+            <param name="strength">Number of bytes to create. Default is 16.</param>
+            <returns>A random Base64 encoded string.</returns>
+        </member>
+        <member name="M:FrisExtras.Secrets.Secrets.GenHexToken(System.Int32)">
+            <summary>
+                Generates a random text string in hexadecimal.
+            </summary>
+            <param name="strength">Number of bytes to create. Default is 16.</param>
+            <returns>A random hexadecimal string.</returns>
+        </member>
+    </members>
+</doc>
